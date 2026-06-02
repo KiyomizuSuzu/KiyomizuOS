@@ -1,0 +1,160 @@
+title: Main
+actions:
+  # ==============================================================================
+  # DOWNLOADING SOFTWARES
+  # ==============================================================================
+  - !status: {status: "Installing Powershell 7 (Required)"}
+  - !download: 
+    destination: PowerShell-7.6.2-win-x64.msi
+    url: https://github.com/PowerShell/PowerShell/releases/download/v7.6.2/PowerShell-7.6.2-win-x64.msi
+  - !run:
+    exe: C:\Windows\System32\msiexec.exe
+    args: /package C:\ProgramData\AME\OOBE\Playbook\Executables\PowerShell-7.6.2-win-x64.msi /quiet DISABLE_TELEMETRY=1
+
+  - !status: {status: "Installing 7-Zip ZS (Required)"}
+  - !download:
+    destination: 7z25.01-zstd-x64.exe
+    url: https://github.com/mcmilk/7-Zip-zstd/releases/download/v25.01-v1.5.7-R4/7z25.01-zstd-x64.exe
+  - !run:
+    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\7z25.01-zstd-x64.exe
+    args: /S
+
+  - !status: {status: "Installing .NET 10 Desktop Runtime (Required)"}
+  - !download:
+    destination: windowsdesktop-runtime-10.0.8-win-x64.exe
+    url: https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.8/windowsdesktop-runtime-10.0.8-win-x64.exe
+  - !run:
+    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\windowsdesktop-runtime-10.0.8-win-x64.exe
+    args: /S
+
+  - !status: {status: "Installing Microsoft Visual C++ Redistributable"}
+  - !download:
+    destination: vc_redist.x64.exe
+    url: https://aka.ms/vc14/vc_redist.x64.exe
+  - !run:
+    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\vc_redist.x64.exe
+    args: /install /quiet /norestart
+  - !download:
+    destination: vc_redist.x86.exe
+    url: https://aka.ms/vc14/vc_redist.x86.exe
+  - !run:
+    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\vc_redist.x86.exe
+    args: /install /quiet /norestart
+
+  - !status: {status: "Installing Librewolf", option: librewolf}
+  - !download:
+    destination: librewolf-151.0.2-1-windows-x86_64-setup.exe
+    url: https://dl.librewolf.net/librewolf/151.0.2-1/librewolf-151.0.2-1-windows-x86_64-setup.exe
+    option: librewolf
+  - !run:
+    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\librewolf-151.0.2-1-windows-x86_64-setup.exe
+    args: /S
+    option: librewolf
+
+  - !status: {status: "Installing helium", option: helium}
+  - !download:
+    destination: helium_0.12.5.1_x64-installer.exe
+    url: https://github.com/imputnet/helium-windows/releases/download/0.12.5.1/helium_0.12.5.1_x64-installer.exe
+    option: helium
+  - !run:
+    exe: C:\Program Files\7-Zip-Zstandard\7z.exe
+    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer.exe -o"C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer.exe"
+    option: helium
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "& 'C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\setup.exe' --install-archive='C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\helium.7z' --silent --install --system-level --do-not-launch-chrome 2>$null"
+    option: helium
+
+  # ==============================================================================
+  # MAIN DEBLOAT
+  # ==============================================================================
+  - !status: {status: "Executing debloat scripts"}
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\BloatRemoval.ps1
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\EdgeRemoval.ps1
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\OneDriveRemoval.ps1
+
+  - !status: {status: "Configuring Winhance power plan"}
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\PowerPlan.ps1
+
+  - !status: {status: "Running registry modications"}
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\Registry.ps1
+
+  - !status: {status: "Disabling nonessential scheduled tasks"}
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\ScheduledTask.ps1
+
+  - !status: {status: "Disabling not needed services"}
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\Service.ps1
+
+  # ==============================================================================
+  # FINALIZING
+  # ==============================================================================
+  - !status: {status: "Switching to light theme", option: light}
+  - !registryValue:
+      path: HKEY_LOCAL_MACHINE\SOFTWARE\AME 
+      value: UseLightTheme 
+      type: REG_DWORD
+      data: 1 
+      option: light
+
+  - !status: {status: "Setting up a component for some presistence features"}
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\ActiveSetup.ps1
+
+  - !status: {status: "Switching to Pro For Workstations Edition" }
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\ProForWorkstations.ps1
+
+  - !status: {status: "Disabling legacy NTFS behaviors" }
+  - !run: 
+    exe: C:\Windows\System32\fsutil.exe
+    args: behavior set disableLastAccess 1
+  - !run: 
+    exe: C:\Windows\System32\fsutil.exe
+    args: behavior set disable8dot3 1
+
+  - !status: {status: "Enabling WIFI random hardware addresses"}
+  - !run:
+    exe: C:\Windows\System32\netsh.exe
+    args: wlan set randomization enabled=yes interface="Wi-Fi"
+
+  - !status: {status: "Turning off bluetooth by default"}
+  - !download:
+    destination: BluetoothToggle.exe
+    url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/KiyomizuOS/BluetoothToggle.exe
+  - !run:
+    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\BluetoothToggle.exe
+
+  - !status: {status: "Setting file unlocker in Windows 11 context menu"}
+  - !download:
+    destination: FileUnlocker12.zip
+    url: https://github.com/marianpekar/file-unlocker-for-windows/releases/download/v1.2/FileUnlocker12.zip
+  - !run:
+    exe: C:\Program Files\7-Zip-Zstandard\7z.exe
+    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\FileUnlocker12"
+  - !run:
+    exe: C:\Windows\System32\cmd.exe
+    args: /c C:\ProgramData\AME\FileUnlocker12\install.bat
+
+  - !status: {status: "Disabling Bitlocker completely", iso: only}
+  - !registryValue:
+      path: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\BitLocker 
+      value: PreventDeviceEncryption
+      type: REG_DWORD
+      data: 1
+      iso: only
