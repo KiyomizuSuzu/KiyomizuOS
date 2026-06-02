@@ -136,9 +136,10 @@ actions:
   - !status: {status: "Turning off bluetooth by default"}
   - !download:
     destination: BluetoothToggle.exe
-    url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/KiyomizuOS/BluetoothToggle.exe
+    url: https://github.com/KiyomizuSuzu/Bluetooth/releases/download/Latest/Bluetooth.exe
   - !run:
-    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\BluetoothToggle.exe
+    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\Bluetooth.exe
+    args: /off
 
   - !status: {status: "Setting file unlocker in Windows 11 context menu"}
   - !download:
