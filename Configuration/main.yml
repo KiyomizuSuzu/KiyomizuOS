@@ -19,14 +19,6 @@ actions:
     exe: C:\ProgramData\AME\OOBE\Playbook\Executables\7z25.01-zstd-x64.exe
     args: /S
 
-  - !status: {status: "Installing .NET 10 Desktop Runtime (Required)"}
-  - !download:
-    destination: windowsdesktop-runtime-10.0.8-win-x64.exe
-    url: https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.8/windowsdesktop-runtime-10.0.8-win-x64.exe
-  - !run:
-    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\windowsdesktop-runtime-10.0.8-win-x64.exe
-    args: /S
-
   - !status: {status: "Installing Microsoft Visual C++ Redistributable"}
   - !download:
     destination: vc_redist.x64.exe
