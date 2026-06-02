@@ -434,7 +434,7 @@ else {
             Write-Log "Deleted scheduled task: $($task.TaskName)"
         }
         catch {
-            Write-Log "Failed deleting task: $($task.TaskName)" "ERROR"
+            Write-Log "Failed deleting task: $($task.TaskName)" 'ERROR'
         }
     }
 }
