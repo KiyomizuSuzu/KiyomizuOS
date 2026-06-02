@@ -160,8 +160,6 @@ $optionalFeatures = @(
 # ============================================================================
 # MAIN
 # ============================================================================
-
-Write-Log "Starting bloat removal process"
 Write-Log "Discovering installed packages..."
 
 $allInstalled = Get-AppxPackage -AllUsers 
