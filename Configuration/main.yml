@@ -128,7 +128,7 @@ actions:
   - !status: {status: "Turning off bluetooth by default"}
   - !download:
     destination: Bluetooth.exe
-    url: https://github.com/KiyomizuSuzu/Bluetooth/releases/download/Latest/Bluetooth.exe
+    url: https://github.com/KiyomizuSuzu/Bluetooth/releases/download/1.0.0/Bluetooth.exe
   - !run:
     exe: C:\ProgramData\AME\OOBE\Playbook\Executables\Bluetooth.exe
     args: /off
