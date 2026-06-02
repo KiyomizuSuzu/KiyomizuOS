@@ -341,7 +341,6 @@ function Install-EdgeProtocolRedirect {
 # ============================================================================
 # EXECUTION
 # ============================================================================
-Write-Host "Starting Edge removal process."
 Write-Log 'Checking for Edge installations'
 $legacyInstalled = Test-LegacyEdgeInstalled
 $chromiumInstalled = Test-ChromiumEdgeInstalled
