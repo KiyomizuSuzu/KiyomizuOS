@@ -8,7 +8,7 @@ This playbook includes downloads from third-party projects.
 - [Helium](https://github.com/imputnet/helium) — GPL-3.0 License
 - [PowerShell 7](https://github.com/PowerShell/PowerShell) — MIT License
 - [7-Zip ZS](https://github.com/mcmilk/7-Zip-zstd) — GNU LGPL v2.1-or-later License
-- [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) — Microsoft Software License Terms
+- [Microsoft Visual C++ v14 Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) — Microsoft Software License Terms
 - [File Unlocker for Windows](https://github.com/marianpekar/file-unlocker-for-windows) — MIT License
 
 The original licenses and copyright notices for third-party software are included with their respective distributions.
