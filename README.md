@@ -5,7 +5,7 @@ This is a playbook based on Winhance that uses PowerShell scripts, preferably Po
 Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd/
 
 Then, open a console in the repository root directory and run the following command:
-```console
+```powershell
 "C:\Program Files\7-Zip-Zstandard\7z.exe" a -t7z KiyomizuOS.apbx Configuration Executables Images playbook.conf playbook.png -pmalte
 ```
 
