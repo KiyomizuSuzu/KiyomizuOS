@@ -2,7 +2,7 @@
 This is a playbook based on Winhance that uses PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
 
 ## To Package the Playbook
-Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd/
+Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd
 
 Then, open up Powershell in the repository root directory and run the following command:
 ```powershell
