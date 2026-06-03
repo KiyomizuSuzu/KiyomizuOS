@@ -1,5 +1,5 @@
 # KiyomizuOS
-This is a playbook based on Winhance that primarlyy uses PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
+This is a playbook based on Winhance that playbook primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
 
 ### How to Use This Playbook
 
