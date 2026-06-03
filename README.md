@@ -1,8 +1,8 @@
 # KiyomizuOS
 Based on Winhance with playbook in mind.
 
-## Third-Party Software
-This package includes software from third-party projects.
+## Third-Party Software Downloads
+This playbook includes downloads from third-party projects.
 
 - LibreWolf — MPL 2.0 License
 - Helium — GPL-3.0 License
