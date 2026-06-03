@@ -1,5 +1,5 @@
 # KiyomizuOS
-Based on Winhance with playbook in mind.
+KiyomizuOS is a playbook based on Winhance that uses PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
 
 ## Third-Party Software Downloads
 This playbook includes downloads from third-party projects.
