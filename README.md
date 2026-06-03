@@ -1,5 +1,18 @@
 # KiyomizuOS
-This is a playbook based on Winhance that uses PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
+This is a playbook based on Winhance that primarlyy uses PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
+
+### How to Use This Playbook
+
+1. Ensure you have [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli) and a valid [Windows 11 ISO](https://massgrave.dev/windows_11_links).
+2. Open AME Beta and drag your `.iso` file into the application.
+3. Select the `KiyomizuOS.apbx` file.
+4. Follow the on-screen instructions and pass all requirement checks.
+5. Customize any available features to modify the playbook's functionality.
+6. Build the KiyomizuOS ISO.
+7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
+8. Perform a clean installation of Windows using the generated ISO.
+
+> Only ISO Injection is supported. Live installation is not supported and will not be supported in future releases.
 
 ### To Package the Playbook
 Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd
