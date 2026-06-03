@@ -1,7 +1,7 @@
 # KiyomizuOS
 This is a playbook based on Winhance that playbook primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
 
-### Installation
+### Installation Guide
 
 1. Ensure you have [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli) and a valid [Windows 11 ISO](https://massgrave.dev/windows_11_links).
 2. Open AME Beta and drag your `.iso` file into the application.
