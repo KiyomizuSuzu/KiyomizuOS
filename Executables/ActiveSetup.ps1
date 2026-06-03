@@ -114,9 +114,6 @@ function Set-RegistryValue {
             New-Item -Path $Path `
                 -Force | Out-Null
         }
-        else {
-            # key already exists, nothing to create
-        }
         switch ($Type) {
             'String'       { $Value = [string]$Value }
             'ExpandString' { $Value = [string]$Value }
@@ -358,12 +355,12 @@ else {
         Write-Log "Darkmode is selected."
         $wallpaperPath = 'C:\Windows\Web\Wallpaper\Windows\img19.jpg'
     }
-    $waitingForExplorer = $true
-    while ($waitingForExplorer) {
+    $waitingForWindows = $true
+    while ($waitingForWindows) {
         $validExplorer = (Get-Process -Name explorer).MainWindowHandle
         if ($validExplorer) {
-            $waitingForExplorer = $false
-            Write-Log "Explorer is fully running."
+            $waitingForWindows = $false
+            Write-Log "Windows Explorer has started."
         }
         else {
             Start-Sleep -Milliseconds 500
@@ -516,10 +513,30 @@ else {
         -Type 'String' `
         -Value $wallpaperPath `
         -Desc 'Wallpaper file'
-    Remove-RegistryValue -Path 'Registry::HKEY_CURRENT_USER\Control Panel\Desktop' `
-        -Name 'TranscodedImageCache' `
-        -Desc "Cache for wallpaper"
 
-    #exits any dialogs preventing restart
-    Restart-Computer -Force
+    Write-Log "Restarting Windows Explorer"
+    Stop-process -name explorer -force
+    $refresh = [System.Diagnostics.Stopwatch]::StartNew()
+    while ($refresh.ElapsedMilliseconds -lt 2000) {
+        $verifyWallpaper = (Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Control Panel\Desktop').Wallpaper
+        if ($verifyWallpaper -ne $wallpaperPath) {
+            Write-Log "Wallpaper was overwritten: $VerifyWallpaper" 'WARN'
+            Set-RegistryValue -Path 'Registry::HKEY_CURRENT_USER\Control Panel\Desktop' `
+                -Name 'WallPaper' `
+                -Type 'String' `
+                -Value $wallpaperPath `
+                -Desc 'Wallpaper file'
+            $verifiedWallpaper = $false
+        }
+        else {
+            rundll32.exe user32.dll,UpdatePerUserSystemParameters 1, True
+            $verifiedWallpaper = $true
+        }
+    }
+    if ($verifiedWallpaper) {
+        Write-Log "Successfully notified changes to apply properly."
+    }
+    else {
+        Write-Log "Changes made were not applied properly." 'ERROR'
+    }
 }
