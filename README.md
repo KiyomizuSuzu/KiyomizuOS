@@ -10,7 +10,7 @@ This is a playbook based on Winhance that playbook primarily relies on PowerShel
 5. Customize any available features to modify the playbook's functionality.
 6. Build the KiyomizuOS ISO.
 7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
-8. Perform a clean installation of Windows using the generated ISO.
+8. Perform a clean installation or an in-place upgrade of Windows using the generated ISO.
 
 > Only ISO Injection is supported. Live installation is not supported and will not be supported in future releases.
 
