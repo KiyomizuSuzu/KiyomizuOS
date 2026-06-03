@@ -1,6 +1,12 @@
 # KiyomizuOS
 This is a playbook based on Winhance that uses PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
 
+## To Package the Playbook
+Ensure you have 7-Zip ZS or a compatible alternative installed, then run the following command in the current directory:
+```powershell
+& "C:\Program Files\7-Zip-Zstandard\7z.exe" a -t7z KiyomizuOS.apbx Configuration Executables Images playbook.conf playbook.png -pmalte
+```
+
 ## Third-Party Software Downloads
 This playbook includes downloads from third-party projects.
 
