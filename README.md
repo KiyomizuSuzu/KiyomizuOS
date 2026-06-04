@@ -1,7 +1,6 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/KiyomizuSuzu/KiyomizuOS/main/playbook.png"
-       width="250"
-       style="border-radius:50%">
+       width="50%">
 </p>
 
 <h1 align="center">KiyomizuOS</h1>
