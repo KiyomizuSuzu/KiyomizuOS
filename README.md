@@ -34,7 +34,7 @@ This playbook includes downloads from third-party projects.
 
 The original licenses and copyright notices for third-party software are included with their respective distributions.
 
-## AGPL-3.0 license
+## AGPL-3.0 License
 Source: https://www.gnu.org/licenses/agpl-3.0.en.html
 
 This is an OSI-approved open-source license. Free to fork, modify, and redistribute under the terms of the AGPL-3.0.
