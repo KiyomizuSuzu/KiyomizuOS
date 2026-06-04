@@ -1,6 +1,52 @@
 # KiyomizuOS
 This is a playbook based on [Winhance](https://winhance.net) that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using [AME Wizard](https://amelabs.net).
 
+### Appx Packages:
+| Package Name | App Name |
+|--------------|----------|
+| Microsoft.BingSearch | Bing Search |
+| Microsoft.BingNews | Bing News |
+| Microsoft.BingWeather | Bing Weather |
+| Microsoft.WindowsCamera | Camera |
+| Clipchamp.Clipchamp | Clipchamp |
+| Microsoft.WindowsAlarms | Alarms & Clock |
+| Microsoft.GetHelp | Get Help |
+| Microsoft.WindowsCalculator | Calculator |
+| Microsoft.Windows.DevHome | Dev Home |
+| MSTeams | Microsoft Teams |
+| Microsoft.WindowsFeedbackHub | Feedback Hub |
+| Microsoft.WindowsTerminal | Windows Terminal |
+| Microsoft.MicrosoftOfficeHub | Microsoft Office Hub |
+| Microsoft.OutlookForWindows | Outlook for Windows |
+| Microsoft.PowerAutomateDesktop | Power Automate Desktop |
+| MicrosoftCorporationII.QuickAssist | Quick Assist |
+| Microsoft.MicrosoftSolitaireCollection | Microsoft Solitaire Collection |
+| Microsoft.GamingApp | Xbox App |
+| Microsoft.XboxIdentityProvider | Xbox Identity Provider |
+| Microsoft.Xbox.TCUI | Xbox TCUI |
+| Microsoft.XboxGamingOverlay | Xbox Game Bar Overlay |
+| Microsoft.WindowsSoundRecorder | Sound Recorder |
+| Microsoft.MicrosoftStickyNotes | Sticky Notes |
+| Microsoft.Todos | Microsoft To Do |
+| Microsoft.YourPhone | Phone Link |
+| MicrosoftWindows.CrossDevice | Cross Device Experience |
+
+### Capabilities:
+| Capability | Name |
+|------------|-------------|
+| Browser.InternetExplorer | Internet Explorer (Legacy) |
+| Microsoft.Windows.PowerShell.ISE | PowerShell ISE |
+| App.StepsRecorder | Steps Recorder (Legacy) |
+| Media.WindowsMediaPlayer | Windows Media Player (Legacy) |
+| Microsoft.Windows.Notepad | Notepad (Legacy) |
+| OpenSSH.Client | OpenSSH Client |
+| MathRecognizer | Math Recognition |
+
+### Optional Features:
+| Feature | Name |
+|---------|-------------|
+| Microsoft-RemoteDesktopConnection | Remote Desktop Services Tools |
+
 ### Installation Guide
 
 1. Ensure you have [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli/releases/latest) and a valid [Windows 11 ISO](https://massgrave.dev/windows_11_links).
