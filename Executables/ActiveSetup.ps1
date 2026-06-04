@@ -310,27 +310,22 @@ $activeSetupexists = Test-Path -Path $activeSetupPath
 
 if (-not $activeSetupexists -and -not $Phase2) {
     Write-Log "Registering Active Setup component"
-
-    Set-RegistryValue `
-        -Path $activeSetupPath `
+    Set-RegistryValue -Path $activeSetupPath `
         -Name 'Version' `
         -Type 'String' `
         -Value '1,0' `
         -Desc 'Active Setup component version'
-    Set-RegistryValue `
-        -Path $activeSetupPath `
+    Set-RegistryValue -Path $activeSetupPath `
         -Name 'IsInstalled' `
         -Type 'DWord' `
         -Value 1 `
         -Desc 'Enable Active Setup component'
-    Set-RegistryValue `
-        -Path $activeSetupPath `
+    Set-RegistryValue -Path $activeSetupPath `
         -Name 'LocalizedName' `
         -Type 'String' `
         -Value 'AME First Logon Tweaks' `
         -Desc 'Active Setup display name'
-    Set-RegistryValue `
-        -Path $activeSetupPath `
+    Set-RegistryValue -Path $activeSetupPath `
         -Name 'StubPath' `
         -Type 'String' `
         -Value '"C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\ProgramData\AME\ActiveSetup\ActiveSetup.ps1"' `

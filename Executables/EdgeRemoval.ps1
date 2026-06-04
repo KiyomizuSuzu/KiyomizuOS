@@ -139,8 +139,7 @@ function Test-ChromiumEdgeInstalled {
 }
 function Stop-EdgeProcesses {
     $targets = @(
-        'MicrosoftEdgeUpdate',
-        'CrossDeviceResume'
+        'MicrosoftEdgeUpdate'
     )
     foreach ($name in $targets) {
         $running = Get-Process -Name $name
@@ -217,8 +216,8 @@ function Remove-ChromiumEdge {
     foreach ($key in $uninstallKeys) {
         $find = Get-ItemProperty $key.PSPath
         if ($find.DisplayName -like '*Microsoft Edge*') {
+            Write-Log "Running Edge uninstaller"
             $uninstallString = $find.UninstallString
-            Write-Log 'Running Edge uninstaller'
             if ($uninstallString -like '*msiexec*') {
                 if ($uninstallString -match '\{.*\}') {
                     $productCode = $matches[0]

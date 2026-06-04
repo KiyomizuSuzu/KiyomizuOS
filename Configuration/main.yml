@@ -155,22 +155,7 @@ actions:
       data: 1
       iso: only
 
-  - !status: {status: "Ensures compatibility with In-place upgrade", oobe: only}
-  - !registryValue:
-      path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
-      value: Shell
-      type: REG_SZ
-      data: explorer.exe
-      oobe: only
-
-  - !status: {status: "Manually removing ameoobe service", oobe: only}
-  - !service:
-    name: ameoobe
-    deleteStop: false
-    deleteUsingRegistry: true
-    oobe: only
-
-  - !status: {status: "Restarting now", oobe: only}
+  - !status: {status: "Forcefully restarting now", oobe: only}
   - !run:
     exe: C:\Windows\System32\shutdown.exe
     args: /r /f /t 0
