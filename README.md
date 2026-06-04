@@ -11,7 +11,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 - Bluetooth is turned off by default on a fresh Windows 11 boot
 - Unnecessary scheduled tasks removed or disabled and services set to disabled at startup
 - Registered Active Setup to modify some registry values that would otherwise be overwritten
-- Start Menu cleaned except for Get Started and taskbar remains centered with search bar changed to search icon only
+- Start Menu cleaned except for Get Started and taskbar remains centered with search bar changed to icon only
 
 ## What is removed is shown below
 ### Manual removal (non-standard):
