@@ -18,7 +18,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 - Bluetooth is turned off by default on a fresh Windows 11 boot
 - Unnecessary scheduled tasks removed or disabled and services set to disabled at startup
 - Registered Active Setup to modify some registry values that would otherwise be overwritten
-- Start Menu cleaned except for Get Started and taskbar remains centered with search bar changed to icon only
+- Start Menu cleaned (except for Get Started app) and taskbar remains centered with search bar changed to icon only
 - Added Powershell 7 as a dependency for my scripts to work properly
 - Added 7-Zip ZS, Microsoft Visual C++ Redistributable v14, and optionally LibreWolf or Helium to replace Microsoft Edge
 - WIFI random hardware addresses enabled by default, Last Access Time Stamp and 8.3 Filename Creation are set to disabled
