@@ -25,7 +25,7 @@ Then, open up Powershell in the repository root directory and run the following 
 ## Third-Party Software Downloads
 This playbook includes downloads from third-party projects.
 
-- [LibreWolf](https://librewolf.net/) — MPL 2.0 License
+- [LibreWolf](https://codeberg.org/librewolf/source) — MPL 2.0 License
 - [Helium](https://github.com/imputnet/helium) — GPL-3.0 License
 - [PowerShell 7](https://github.com/PowerShell/PowerShell) — MIT License
 - [7-Zip ZS](https://github.com/mcmilk/7-Zip-zstd) — GNU LGPL v2.1-or-later License
