@@ -25,6 +25,8 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 - BitLocker turned OFF to not automatically encrypt drives even without using a Microsoft Account because it's waiting for activation
 - Default Windows 11 wallpapers are set accordingly to your theme settings
 
+Most changes are not listed here but can be found in [Registry.ps1](https://github.com/KiyomizuSuzu/KiyomizuOS/blob/main/Executables/Registry.ps1).
+
 ## List of removed components
 ### Manual removal (non-standard):
 - Microsoft Edge and OneDrive
