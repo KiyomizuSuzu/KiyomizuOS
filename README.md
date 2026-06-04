@@ -50,7 +50,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 ### Optional Features:
 | Feature | Name | Status |
 |---------|------|--------|
-| Microsoft-RemoteDesktopConnection | Remote Desktop Services Tools | <div align="center">Active</div> |
+| Microsoft-RemoteDesktopConnection | Remote Desktop Connection | <div align="center">Active</div> |
 
 ### Installation Guide
 
