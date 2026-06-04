@@ -1,5 +1,5 @@
 # KiyomizuOS
-This is a playbook based on [Winhance](https://winhance.net) that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11.
+This is a playbook based on [Winhance](https://winhance.net) that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using [AME Wizard](https://amelabs.net).
 
 ### Installation Guide
 
