@@ -1875,7 +1875,8 @@ $LocalAccount = (Get-LocalUser).Where({
         'Administrator',
         'DefaultAccount',
         'Guest',
-        'WDAGUtilityAccount'
+        'WDAGUtilityAccount',
+        'defaultuser0'
     )
 })
 if ($LocalAccount.Count -eq 0) {
