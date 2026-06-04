@@ -3,7 +3,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 
 ### Installation Guide
 
-1. Ensure you have [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli) and a valid [Windows 11 ISO](https://massgrave.dev/windows_11_links).
+1. Ensure you have [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli/releases/latest) and a valid [Windows 11 ISO](https://massgrave.dev/windows_11_links).
 2. Open AME Beta and drag your `.iso` file into the application.
 3. Select the `KiyomizuOS.apbx` file.
 4. Follow the on-screen instructions and pass all requirement checks.
