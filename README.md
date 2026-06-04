@@ -1,6 +1,11 @@
 # KiyomizuOS
 This is a playbook based on [Winhance](https://winhance.net) that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using [AME Wizard](https://amelabs.net).
 
+# What is removed is shown below
+### Manual removal (non-standard):
+- Microsoft Edge
+- OneDrive
+
 ### Appx Packages:
 | Package Name | App Name |
 |--------------|----------|
@@ -38,7 +43,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 | Microsoft.Windows.PowerShell.ISE | PowerShell ISE | <div align="center">Deprecated</div> |
 | App.StepsRecorder | Steps Recorder | <div align="center">Deprecated</div> |
 | Media.WindowsMediaPlayer | Windows Media Player | <div align="center">Legacy</div> |
-| Microsoft.Windows.Notepad | Notepad | <div align="center">Core</div> |
+| Microsoft.Windows.Notepad | Notepad | <div align="center">Active</div> |
 | OpenSSH.Client | OpenSSH Client | <div align="center">Active</div> |
 | MathRecognizer | Math Recognition | <div align="center">Deprecated</div> |
 
