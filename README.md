@@ -3,8 +3,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 
 ## What is removed is shown below
 ### Manual removal (non-standard):
-- Microsoft Edge
-- OneDrive
+- Microsoft Edge and OneDrive
 
 ### Appx Packages:
 | Package Name | App Name |
