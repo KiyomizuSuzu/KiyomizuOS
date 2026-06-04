@@ -2,7 +2,6 @@
   <img src="https://raw.githubusercontent.com/KiyomizuSuzu/KiyomizuOS/main/playbook.png"
        width="50%">
 </p>
-
 <h1 align="center">KiyomizuOS</h1>
 <p align="center">
 This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.
