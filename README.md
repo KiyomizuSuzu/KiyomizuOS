@@ -43,7 +43,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 | Microsoft.Windows.PowerShell.ISE | PowerShell ISE | <div align="center">Deprecated</div> |
 | App.StepsRecorder | Steps Recorder | <div align="center">Deprecated</div> |
 | Media.WindowsMediaPlayer | Windows Media Player | <div align="center">Legacy</div> |
-| Microsoft.Windows.Notepad | Notepad | <div align="center">Active</div> |
+| Microsoft.Windows.Notepad | Notepad | <div align="center">Legacy</div> |
 | OpenSSH.Client | OpenSSH Client | <div align="center">Active</div> |
 | MathRecognizer | Math Recognition | <div align="center">Deprecated</div> |
 
