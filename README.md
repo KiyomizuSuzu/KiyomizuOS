@@ -41,3 +41,5 @@ This is an OSI-approved open-source license. Free to fork, modify, and redistrib
 
 By complying with the AGPL-3.0 license, you must keep the same license for the covered work and cannot relicense that covered part under a different license.
 Anyone who receives the software (including through purchase or as a service) must also be provided access to the corresponding source code under the same license.
+
+The point is that if you share modified code with someone, whether privately or not, any scripts derived from AGPL-3.0 code must retain a header comment indicating that they are licensed under AGPL-3.0.
