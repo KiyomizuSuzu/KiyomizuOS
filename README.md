@@ -1,6 +1,17 @@
 # KiyomizuOS
 This is a playbook based on [Winhance](https://winhance.net) that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using [AME Wizard](https://amelabs.net).
 
+## Changes made
+- Customized original Winhance power plan for both laptop and desktop (auto-detect)
+- Switched to Pro For Workstation edition (highest consumer Windows edition without the enterprise features)
+- Disabled most UI animations and visual effects
+- Windows Update paused and driver searching disabled
+- Memory Integrity and Kernel-mode Hardware-enforced Stack protection are enabled by default
+- Smart App control set to OFF and block Potentially Unwanted Apps enabled by default
+- Bluetooth is turned off by default on a fresh Windows 11 boot
+- Unnecessary scheduled tasks removed or disabled and services set to disabled at startup
+- Registered Active Setup to modify some registry values that would otherwise be overwritten
+
 ## What is removed is shown below
 ### Manual removal (non-standard):
 - Microsoft Edge and OneDrive
