@@ -142,7 +142,7 @@ actions:
     args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\FileUnlocker12" -aoa
   - !run:
     exe: C:\Windows\System32\cmd.exe
-    args: /c C:\ProgramData\AME\FileUnlocker12\install.bat
+    args: /c "(for /L %i in (1,1,1000) do @echo Yes) | C:\ProgramData\AME\FileUnlocker12\install.bat" 2>null
 
   - !status: {status: "Disabling Bitlocker completely", iso: only}
   - !registryValue:
