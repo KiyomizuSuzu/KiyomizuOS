@@ -85,7 +85,7 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 5. Customize any available features to modify the playbook's functionality.
 6. Build the KiyomizuOS ISO.
 7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
-8. Perform a clean installation or an in-place upgrade of Windows during the setup process.
+8. Perform a clean installation and NOT an in-place upgrade during the setup process.
 
 > Only ISO Injection is supported. Live installation is not supported and will not be supported in future releases.
 
