@@ -1,7 +1,7 @@
 # KiyomizuOS
 This is a playbook based on [Winhance](https://winhance.net) that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using [AME Wizard](https://amelabs.net).
 
-# What is removed is shown below
+## What is removed is shown below
 ### Manual removal (non-standard):
 - Microsoft Edge
 - OneDrive
