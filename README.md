@@ -51,7 +51,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 | Feature | Name | Status |
 |---------|------|--------|
 | Microsoft-RemoteDesktopConnection | Remote Desktop Connection | <div align="center">Active</div> |
-
+---
 ### Installation Guide
 
 1. Ensure you have [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli/releases/latest) and a valid [Windows 11 ISO](https://massgrave.dev/windows_11_links).
@@ -72,7 +72,7 @@ Then, open up Powershell in the repository root directory and run the following 
 ```powershell
 & "C:\Program Files\7-Zip-Zstandard\7z.exe" a -t7z KiyomizuOS.apbx Configuration Executables Images playbook.conf playbook.png -pmalte
 ```
-
+---
 ## Third-Party Software Downloads
 This playbook includes downloads from third-party projects.
 
