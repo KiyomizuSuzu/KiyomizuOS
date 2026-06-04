@@ -25,7 +25,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 - BitLocker turned OFF to not automatically encrypt drives even without using a Microsoft Account because it's waiting for activation
 - Default Windows 11 wallpapers are set accordingly to your theme settings
 
-## The components removed are listed below
+## List of removed components
 ### Manual removal (non-standard):
 - Microsoft Edge and OneDrive
 
