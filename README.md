@@ -32,20 +32,20 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 | MicrosoftWindows.CrossDevice | Cross Device Experience |
 
 ### Capabilities:
-| Capability | Name |
-|------------|-------------|
-| Browser.InternetExplorer | Internet Explorer (Legacy) |
-| Microsoft.Windows.PowerShell.ISE | PowerShell ISE |
-| App.StepsRecorder | Steps Recorder (Legacy) |
-| Media.WindowsMediaPlayer | Windows Media Player (Legacy) |
-| Microsoft.Windows.Notepad | Notepad (Legacy) |
-| OpenSSH.Client | OpenSSH Client |
-| MathRecognizer | Math Recognition |
+| Capability | Name | Status |
+|------------|------|--------|
+| Browser.InternetExplorer | Internet Explorer | <div align="center">Deprecated</div> |
+| Microsoft.Windows.PowerShell.ISE | PowerShell ISE | <div align="center">Deprecated</div> |
+| App.StepsRecorder | Steps Recorder | <div align="center">Deprecated</div> |
+| Media.WindowsMediaPlayer | Windows Media Player | <div align="center">Legacy</div> |
+| Microsoft.Windows.Notepad | Notepad | <div align="center">Core</div> |
+| OpenSSH.Client | OpenSSH Client | <div align="center">Active</div> |
+| MathRecognizer | Math Recognition | <div align="center">Deprecated</div> |
 
 ### Optional Features:
-| Feature | Name |
-|---------|-------------|
-| Microsoft-RemoteDesktopConnection | Remote Desktop Services Tools |
+| Feature | Name | Status |
+|---------|------|--------|
+| Microsoft-RemoteDesktopConnection | Remote Desktop Services Tools | <div align="center">Active</div> |
 
 ### Installation Guide
 
