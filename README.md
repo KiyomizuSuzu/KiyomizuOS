@@ -1,5 +1,11 @@
-# KiyomizuOS
-This is a playbook based on [Winhance](https://winhance.net) that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using [AME Wizard](https://amelabs.net).
+<p align="center">
+  <img src="https://github.com/KiyomizuSuzu/KiyomizuOS/blob/main/playbook.png" width="400">
+</p>
+
+<h1 align="center">KiyomizuOS</h1>
+<p align="center">
+This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.
+</p>
 
 ## Changes made
 - Customized original Winhance power plan for both laptop and desktop (auto-detect)
