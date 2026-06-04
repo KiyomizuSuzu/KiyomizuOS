@@ -16,7 +16,7 @@ This is a playbook based on [Winhance](https://winhance.net) that primarily reli
 - Added 7-Zip ZS, Microsoft Visual C++ Redistributable v14, and optionally LibreWolf or Helium to replace Microsoft Edge
 - WIFI random hardware addresses enabled by default, Last Access Time Stamp and 8.3 Filename Creation are set to disabled
 - BitLocker turned OFF to not automatically encrypt drives even without using a Microsoft Account because it's waiting for activation
-- Wallpapers follow system theme settings using default Windows wallpapers
+- Wallpapers follow system theme settings using default Windows 11 wallpapers
 
 ## What is removed is shown below
 ### Manual removal (non-standard):
