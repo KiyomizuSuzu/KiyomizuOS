@@ -43,5 +43,3 @@ By complying with the AGPL-3.0 license, you must keep the same license for the c
 Anyone who receives the software (including through purchase or as a service) must also be provided access to the corresponding source code under the same license.
 
 The point is that if you share modified code with someone, whether privately or not, any scripts derived from AGPL-3.0 code must retain a header comment indicating that they are licensed under AGPL-3.0.
-
-Copyright (c) 2026 KiyomizuSuzu
