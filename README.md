@@ -7,6 +7,10 @@
 This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.
 </p>
 
+## To-do list
+- Add support for live installation incase need to be reapplied again.
+- Everything else is done.
+
 ## Changes made
 - Customized original Winhance power plan for both laptop and desktop (auto-detect)
 - Switched to Pro For Workstation edition (highest consumer Windows edition without the enterprise features)
