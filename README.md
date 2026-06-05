@@ -22,8 +22,8 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 - Unnecessary scheduled tasks removed or disabled and services set to disabled at startup
 - Registered Active Setup to modify some registry values that would otherwise be overwritten
 - Start Menu cleaned (except for Get Started app) and taskbar remains centered with search bar changed to icon only
-- Required Powershell 7 as a dependency for my scripts to work properly
-- Added 7-Zip ZS, Microsoft Visual C++ Redistributable v14, and optionally LibreWolf or Helium to replace Microsoft Edge
+- Required PowerShell 7 and 7-ZIP ZS as dependencies for my scripts to work properly
+- Bundled Microsoft Visual C++ Redistributable v14, and optionally LibreWolf or Helium to replace Microsoft Edge
 - WIFI random hardware addresses enabled by default, Last Access Time Stamp and 8.3 Filename Creation are set to disabled
 - BitLocker turned OFF to not automatically encrypt drives even without using a Microsoft Account because it's waiting for activation
 - Default Windows 11 wallpapers are set accordingly to your theme settings
