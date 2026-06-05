@@ -1791,7 +1791,12 @@ Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Keyboard" `
     -Name 'InitialKeyboardIndicators' `
     -Type 'String' `
     -Value 2 `
-    -Desc 'Enabled numpad by default at startup'
+    -Desc 'Enabled numpad by default after a warm boot (restart)'
+Set-RegistryValue -Path "Registry::HKEY_USERS\.DEFAULT\Control Panel\Keyboard" `
+    -Name 'InitialKeyboardIndicators' `
+    -Type 'String' `
+    -Value 2 `
+    -Desc 'Enabled numpad by default after a cold boot (shutdown)'
 $services = @(
     'DisplayEnhancementService'
     'PcaSvc'
@@ -1866,29 +1871,4 @@ foreach ($name in $services) {
     else {
         Write-Log "$name service does not exist." 'ERROR'
     }
-}
-# ============================================================================
-# REMOVAL AME OOBE IF NEEDED
-# ============================================================================
-$LocalAccount = (Get-LocalUser).Where({
-    $_.Name -notin @(
-        'Administrator',
-        'DefaultAccount',
-        'Guest',
-        'WDAGUtilityAccount',
-        'defaultuser0'
-    )
-})
-if ($LocalAccount.Count -eq 0) {
-    Write-Log "No Local Account was made yet."
-}
-else {
-    Write-Log "Found $LocalAccount" 'WARN'
-    Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' `
-        -Name 'Shell' `
-        -Type 'String' `
-        -Value 'explorer.exe' `
-        -Desc 'Set explorer.exe as shell'
-    Remove-RegistryKey -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ameoobe' `
-        -Desc 'Remove ameoobe service'
 }

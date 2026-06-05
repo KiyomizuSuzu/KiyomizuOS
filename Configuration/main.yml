@@ -43,7 +43,7 @@ actions:
     args: /S
     option: librewolf
 
-  - !status: {status: "Installing helium", option: helium}
+  - !status: {status: "Installing Helium", option: helium}
   - !download:
     destination: helium_0.12.5.1_x64-installer.exe
     url: https://github.com/imputnet/helium-windows/releases/download/0.12.5.1/helium_0.12.5.1_x64-installer.exe
@@ -60,7 +60,7 @@ actions:
   # ==============================================================================
   # MAIN DEBLOAT
   # ==============================================================================
-  - !status: {status: "Executing debloat scripts"}
+  - !status: {status: "Executing debloat scripts (This will take a while)"}
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\BloatRemoval.ps1
@@ -127,11 +127,23 @@ actions:
 
   - !status: {status: "Setting file unlocker in Windows 11 context menu"}
   - !download:
+    destination: FileUnlocker.exe
+    url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/2.6.0/FileUnlocker.exe
+  - !download:
     destination: FileUnlocker12.zip
     url: https://github.com/marianpekar/file-unlocker-for-windows/releases/download/v1.2/FileUnlocker12.zip
+  - !download:
+    destination: LICENSE
+    url: https://raw.githubusercontent.com/marianpekar/file-unlocker-for-windows/refs/heads/master/LICENSE
   - !run:
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\FileUnlocker12" -aoa
+    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\OOBE\Playbook\Executables"
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path 'C:\ProgramData\AME\FileUnlocker12' -Force"
+  - !run:
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker.exe' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\key.ico' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\install.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\remove.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\LICENSE' 'C:\ProgramData\AME\FileUnlocker12\' -Force"
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -command "& 'C:\Windows\System32\cmd.exe' /c '(for /L %i in (1,1,1000) do @echo Yes) | C:\ProgramData\AME\FileUnlocker12\install.bat'" 2>$null
@@ -139,13 +151,14 @@ actions:
   # ==============================================================================
   # FINALIZING
   # ==============================================================================
-  - !status: {status: "Switching to light theme", option: light}
+  - !status: {status: "Switching to light theme", option: light, iso: true}
   - !registryValue:
       path: HKEY_LOCAL_MACHINE\SOFTWARE\AME 
       value: UseLightTheme 
       type: REG_DWORD
       data: 1 
       option: light
+      iso: true
 
   - !status: {status: "Disabling Bitlocker completely", iso: only}
   - !registryValue:
@@ -155,8 +168,8 @@ actions:
       data: 1
       iso: only
 
-  - !status: {status: "Forcefully restarting now", oobe: only}
+  - !status: {status: "Checking if In-place Upgrade is initiated", oobe: only}
   - !run:
-    exe: C:\Windows\System32\shutdown.exe
-    args: /r /f /t 0
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\InplaceUpgrade.ps1
     oobe: only
