@@ -137,7 +137,7 @@ actions:
     url: https://raw.githubusercontent.com/marianpekar/file-unlocker-for-windows/refs/heads/master/LICENSE
   - !run:
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\OOBE\Playbook\Executables"
+    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\OOBE\Playbook\Executables" -aoa
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path 'C:\ProgramData\AME\FileUnlocker12' -Force"
