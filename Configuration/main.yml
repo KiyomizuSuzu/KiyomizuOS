@@ -50,11 +50,11 @@ actions:
     option: helium
   - !run:
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer.exe -o"C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer.exe"
+    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer.exe -o"C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer"
     option: helium
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "& 'C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\setup.exe' --install-archive='C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\helium.7z' --silent --install --system-level --do-not-launch-chrome 2>$null"
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "& 'C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\setup.exe' --install-archive='C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\helium.7z' --silent --install --system-level --do-not-launch-chrome" 2>$null
     option: helium
 
   # ==============================================================================
@@ -92,16 +92,8 @@ actions:
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\Service.ps1
 
   # ==============================================================================
-  # FINALIZING
+  # ADDITIONAL OPTIMIZATIONS
   # ==============================================================================
-  - !status: {status: "Switching to light theme", option: light}
-  - !registryValue:
-      path: HKEY_LOCAL_MACHINE\SOFTWARE\AME 
-      value: UseLightTheme 
-      type: REG_DWORD
-      data: 1 
-      option: light
-
   - !status: {status: "Setting up a component for some presistence features"}
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
@@ -141,8 +133,19 @@ actions:
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
     args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\FileUnlocker12" -aoa
   - !run:
-    exe: C:\Windows\System32\cmd.exe
-    args: /c "(for /L %i in (1,1,1000) do @echo Yes) | C:\ProgramData\AME\FileUnlocker12\install.bat" 2>null
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -command "& 'C:\Windows\System32\cmd.exe' /c '(for /L %i in (1,1,1000) do @echo Yes) | C:\ProgramData\AME\FileUnlocker12\install.bat'" 2>$null
+
+  # ==============================================================================
+  # FINALIZING
+  # ==============================================================================
+  - !status: {status: "Switching to light theme", option: light}
+  - !registryValue:
+      path: HKEY_LOCAL_MACHINE\SOFTWARE\AME 
+      value: UseLightTheme 
+      type: REG_DWORD
+      data: 1 
+      option: light
 
   - !status: {status: "Disabling Bitlocker completely", iso: only}
   - !registryValue:
@@ -151,3 +154,24 @@ actions:
       type: REG_DWORD
       data: 1
       iso: only
+
+  - !status: {status: "Ensures compatibility with In-place upgrade", oobe: only}
+  - !registryValue:
+      path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
+      value: Shell
+      type: REG_SZ
+      data: explorer.exe
+      oobe: only
+
+  - !status: {status: "Manually removing ameoobe service"}
+  - !service:
+    name: ameoobe
+    deleteStop: false
+    deleteUsingRegistry: true
+    oobe: only
+
+  - !status: {status: "Restarting now"}
+  - !run:
+    exe: C:\Windows\System32\shutdown.exe
+    args: /r /f /t 0
+    oobe: only
