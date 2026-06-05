@@ -94,7 +94,7 @@ actions:
   # ==============================================================================
   # ADDITIONAL OPTIMIZATIONS
   # ==============================================================================
-  - !status: {status: "Setting up a component for some presistence features"}
+  - !status: {status: "Setting up ActiveSetup for new users"}
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\ActiveSetup.ps1
@@ -163,14 +163,14 @@ actions:
       data: explorer.exe
       oobe: only
 
-  - !status: {status: "Manually removing ameoobe service"}
+  - !status: {status: "Manually removing ameoobe service", oobe: only}
   - !service:
     name: ameoobe
     deleteStop: false
     deleteUsingRegistry: true
     oobe: only
 
-  - !status: {status: "Restarting now"}
+  - !status: {status: "Restarting now", oobe: only}
   - !run:
     exe: C:\Windows\System32\shutdown.exe
     args: /r /f /t 0
