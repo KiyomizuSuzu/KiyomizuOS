@@ -517,7 +517,7 @@ else {
     Write-Log "Restarting Windows Explorer"
     Stop-process -name explorer -force
     $refresh = [System.Diagnostics.Stopwatch]::StartNew()
-    while ($refresh.ElapsedMilliseconds -lt 2000) {
+    while ($refresh.ElapsedMilliseconds -lt 10000) {
         $verifyWallpaper = (Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Control Panel\Desktop').Wallpaper
         if ($verifyWallpaper -ne $wallpaperPath) {
             Write-Log "Wallpaper was overwritten: $VerifyWallpaper" 'WARN'
