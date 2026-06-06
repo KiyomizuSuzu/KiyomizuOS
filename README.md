@@ -27,6 +27,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 - WIFI random hardware addresses enabled by default, Last Access Time Stamp and 8.3 Filename Creation are set to disabled
 - BitLocker turned OFF to not automatically encrypt drives even without using a Microsoft Account because it's waiting for activation
 - Default Windows 11 wallpapers are set accordingly to your theme settings
+- Enabled verbose messages at logon and numpad enabled by default
 
 Most additional changes are not listed here but can be found in [Registry.ps1](https://github.com/KiyomizuSuzu/KiyomizuOS/blob/main/Executables/Registry.ps1).
 
