@@ -23,7 +23,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 
 ## To-do list
 - Discord server, maybe?
-- Might make a website just for docs
+- Simple website, nothing too crazy
 
 ## Changes made
 - Customized original Winhance power plan for both laptop and desktop (auto-detect)
