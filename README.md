@@ -7,6 +7,16 @@
 This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.
 </p>
 
+<div align="center">
+
+| Apply to       | ISO injection | In-place upgrade | Live system |
+|----------------|--------------|-------------------|-------------|
+| Current user   | ✔            | ✘                | ✔           |
+| Future users   | ✔            | ✔                | ✘           |
+| System-wide    | ✔            | ✔                | ✔           |
+
+</div>
+
 ## To-do list
 - Discord server, maybe
 
