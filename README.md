@@ -8,8 +8,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 </p>
 
 ## To-do list
-- Add support for live installation in case the playbook needs to be reapplied on a live system.
-- Find a companion to work together with me.
+- Discord server, maybe
 
 ## Changes made
 - Customized original Winhance power plan for both laptop and desktop (auto-detect)
