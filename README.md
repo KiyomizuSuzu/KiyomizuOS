@@ -10,7 +10,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 <h2 align="center">Limitations</h1>
 <div align="center">
   
-| Applies to     | ISO injection | In-place upgrade | Live system |
+| Applies to     | Clean Install | In-place upgrade | Live system |
 |----------------|--------------|-------------------|-------------|
 | Current user   | :white_check_mark: | :x: | :white_check_mark: |
 | New users      | :white_check_mark: | :white_check_mark: | :x: |
