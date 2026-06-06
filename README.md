@@ -18,7 +18,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 </div>
 
 <div align="center">
-ISO injection should be used first, followed by an in-place upgrade or a live system depending on your needs.
+“Fresh install should be used first, followed by an in-place upgrade or a live system, depending on your needs.”
 </div>
 
 ## To-do list
