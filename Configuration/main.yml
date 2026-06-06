@@ -132,19 +132,18 @@ actions:
   - !download:
     destination: FileUnlocker12.zip
     url: https://github.com/marianpekar/file-unlocker-for-windows/releases/download/v1.2/FileUnlocker12.zip
-  - !run:
-    exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\OOBE\Playbook\Executables" -aoa
   - !download:
     destination: FileUnlocker.exe
     url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/2.6.0/FileUnlocker.exe
-    overwrite: true
+  - !run:
+    exe: C:\Program Files\7-Zip-Zstandard\7z.exe
+    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12" -aoa
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path 'C:\ProgramData\AME\FileUnlocker12' -Force"
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker.exe' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\key.ico' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\install.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\remove.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\LICENSE' 'C:\ProgramData\AME\FileUnlocker12\' -Force"
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker.exe' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12\key.ico' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12\install.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12\remove.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\LICENSE' 'C:\ProgramData\AME\FileUnlocker12\' -Force"
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -command "& 'C:\Windows\System32\cmd.exe' /c '(for /L %i in (1,1,1000) do @echo Yes) | C:\ProgramData\AME\FileUnlocker12\install.bat'" 2>$null
