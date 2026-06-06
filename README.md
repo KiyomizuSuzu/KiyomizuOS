@@ -17,9 +17,9 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 | System-wide    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 </div>
 
-<div align="center">
-“Fresh install should be used first, followed by an in-place upgrade or a live system, depending on your needs.”
-</div>
+<p align="center">
+  <i>Fresh install should be used first, followed by an in-place upgrade or a live system, depending on your needs.</i>
+</p>
 
 ## To-do list
 - Discord server, maybe
