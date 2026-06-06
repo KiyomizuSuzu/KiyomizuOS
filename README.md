@@ -7,9 +7,22 @@
 This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.
 </p>
 
+<h2 align="center">Limitations</h1>
+<div align="center">
+  
+| Applies to     | Fresh install | In-place upgrade | Live system |
+|----------------|--------------|-------------------|-------------|
+| Current user   | :white_check_mark: | :x: | :white_check_mark: |
+| New users      | :white_check_mark: | :white_check_mark: | :x: |
+| System-wide    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+</div>
+
+<div align="center">
+“Fresh install should be used first, followed by an in-place upgrade or a live system, depending on your needs.”
+</div>
+
 ## To-do list
-- Add support for live installation in case the playbook needs to be reapplied on a live system.
-- Find a companion to work together with me.
+- Discord server, maybe
 
 ## Changes made
 - Customized original Winhance power plan for both laptop and desktop (auto-detect)
