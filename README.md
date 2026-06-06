@@ -9,11 +9,11 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 
 <div align="center">
 
-| Apply to       | ISO injection | In-place upgrade | Live system |
+| Applies to     | ISO injection | In-place upgrade | Live system |
 |----------------|--------------|-------------------|-------------|
-| Current user   | ✔            | ✘                | ✔           |
-| Future users   | ✔            | ✔                | ✘           |
-| System-wide    | ✔            | ✔                | ✔           |
+| Current user   | :white_check_mark: | :x: | :white_check_mark: |
+| New users      | :white_check_mark: | :white_check_mark: | :x: |
+| System-wide    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 </div>
 
