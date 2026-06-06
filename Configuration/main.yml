@@ -127,17 +127,18 @@ actions:
 
   - !status: {status: "Setting file unlocker in Windows 11 context menu"}
   - !download:
-    destination: FileUnlocker.exe
-    url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/2.6.0/FileUnlocker.exe
+    destination: LICENSE
+    url: https://raw.githubusercontent.com/marianpekar/file-unlocker-for-windows/refs/heads/master/LICENSE
   - !download:
     destination: FileUnlocker12.zip
     url: https://github.com/marianpekar/file-unlocker-for-windows/releases/download/v1.2/FileUnlocker12.zip
-  - !download:
-    destination: LICENSE
-    url: https://raw.githubusercontent.com/marianpekar/file-unlocker-for-windows/refs/heads/master/LICENSE
   - !run:
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
     args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\OOBE\Playbook\Executables" -aoa
+  - !download:
+    destination: FileUnlocker.exe
+    url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/2.6.0/FileUnlocker.exe
+    overwrite: true
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path 'C:\ProgramData\AME\FileUnlocker12' -Force"
