@@ -152,16 +152,31 @@ function Remove-File {
 # ============================================================================
 Write-Log 'Removing Onedrive from Windows 11'
 
-$OneDrivePackages = Get-AppxPackage *OneDrive*
-if ($OneDrivePackages) {
-    Write-Log "Found $($OneDrivePackages.Count) OneDrive package(s)." 'WARN'
-    foreach ($Package in $OneDrivePackages) {
-        Write-Log "Removing $($Package.PackageFullName)"
-        Remove-AppxPackage -Package $Package.PackageFullName
+$paths = @(
+    "C:\Program Files\Microsoft OneDrive",
+    "$env:LOCALAPPDATA\Microsoft\OneDrive",
+    "C:\Users\Default\OneDrive"
+)
+$exeExists = Get-ChildItem $programFilesPath `
+    -Filter "OneDriveSetup.exe" `
+    -Recurse | Select-Object -First 1 -ExpandProperty FullName
+if ($exeExists) {
+    Write-Log "OneDrive installed" 'WARN'
+    Get-Process *OneDrive* | Stop-Process -Force
+    Start-Process -FilePath $exeExists -ArgumentList "/uninstall /allusers" -Wait
+    Get-Process explorer, dllhost | Stop-Process -Force
+    foreach ($found in $paths) {
+        if (Test-Path -Path $path) {
+            Write-Log "Removed $found"
+            Remove-Item $path `
+                -Recurse `
+                -Force | Out-Null
+        }
+        else {
+            Write-Log "$found wasn't found" 'WARN'
+        }
     }
-}
-else {
-    Write-Log "OneDrive isn't installed yet."
+    Get-AppxPackage -AllUsers Microsoft.OneDriveSync | Remove-AppxPackage -AllUsers
 }
 
 Remove-RegistryKey -Path 'Registry::HKEY_USERS\AME_UserHive_Default\SOFTWARE\Microsoft\OneDrive' `
