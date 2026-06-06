@@ -152,6 +152,18 @@ function Remove-File {
 # ============================================================================
 Write-Log 'Removing Onedrive from Windows 11'
 
+$OneDrivePackages = Get-AppxPackage *OneDrive*
+if ($OneDrivePackages) {
+    Write-Log "Found $($OneDrivePackages.Count) OneDrive package(s)." 'WARN'
+    foreach ($Package in $OneDrivePackages) {
+        Write-Log "Removing $($Package.PackageFullName)"
+        Remove-AppxPackage -Package $Package.PackageFullName
+    }
+}
+else {
+    Write-Log "OneDrive isn't installed yet."
+}
+
 Remove-RegistryKey -Path 'Registry::HKEY_USERS\AME_UserHive_Default\SOFTWARE\Microsoft\OneDrive' `
     -Desc 'Onedrive key for the main hive'
 

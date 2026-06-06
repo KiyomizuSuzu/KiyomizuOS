@@ -8,15 +8,17 @@ actions:
     destination: PowerShell-7.6.2-win-x64.msi
     url: https://github.com/PowerShell/PowerShell/releases/download/v7.6.2/PowerShell-7.6.2-win-x64.msi
   - !run:
+    exeDir: true
     exe: C:\Windows\System32\msiexec.exe
-    args: /package C:\ProgramData\AME\OOBE\Playbook\Executables\PowerShell-7.6.2-win-x64.msi /quiet DISABLE_TELEMETRY=1
+    args: /package PowerShell-7.6.2-win-x64.msi /quiet DISABLE_TELEMETRY=1
 
   - !status: {status: "Installing 7-Zip ZS (Required)"}
   - !download:
     destination: 7z25.01-zstd-x64.exe
     url: https://github.com/mcmilk/7-Zip-zstd/releases/download/v25.01-v1.5.7-R4/7z25.01-zstd-x64.exe
   - !run:
-    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\7z25.01-zstd-x64.exe
+    exeDir: true
+    exe: 7z25.01-zstd-x64.exe
     args: /S
 
   - !status: {status: "Installing Microsoft Visual C++ Redistributable"}
@@ -24,13 +26,15 @@ actions:
     destination: vc_redist.x64.exe
     url: https://aka.ms/vc14/vc_redist.x64.exe
   - !run:
-    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\vc_redist.x64.exe
+    exeDir: true
+    exe: vc_redist.x64.exe
     args: /install /quiet /norestart
   - !download:
     destination: vc_redist.x86.exe
     url: https://aka.ms/vc14/vc_redist.x86.exe
   - !run:
-    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\vc_redist.x86.exe
+    exeDir: true
+    exe: vc_redist.x86.exe
     args: /install /quiet /norestart
 
   - !status: {status: "Installing Librewolf", option: librewolf}
@@ -39,7 +43,8 @@ actions:
     url: https://dl.librewolf.net/librewolf/151.0.2-1/librewolf-151.0.2-1-windows-x86_64-setup.exe
     option: librewolf
   - !run:
-    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\librewolf-151.0.2-1-windows-x86_64-setup.exe
+    exeDir: true
+    exe: librewolf-151.0.2-1-windows-x86_64-setup.exe
     args: /S
     option: librewolf
 
@@ -49,12 +54,14 @@ actions:
     url: https://github.com/imputnet/helium-windows/releases/download/0.12.5.1/helium_0.12.5.1_x64-installer.exe
     option: helium
   - !run:
+    exeDir: true
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer.exe -o"C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer"
+    args: x helium_0.12.5.1_x64-installer.exe -o"helium_0.12.5.1_x64-installer" -aoa
     option: helium
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "& 'C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\setup.exe' --install-archive='C:\ProgramData\AME\OOBE\Playbook\Executables\helium_0.12.5.1_x64-installer\$TEMP\helium_install\helium.7z' --silent --install --system-level --do-not-launch-chrome" 2>$null
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Start-Process '.\helium_0.12.5.1_x64-installer\$TEMP\helium_install\setup.exe' -ArgumentList '--install-archive=.\helium_0.12.5.1_x64-installer\$TEMP\helium_install\helium.7z --silent --install --system-level --do-not-launch-chrome' -Wait" 2>$null
     option: helium
 
   # ==============================================================================
@@ -62,47 +69,50 @@ actions:
   # ==============================================================================
   - !status: {status: "Executing debloat scripts (This will take a while)"}
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\BloatRemoval.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\BloatRemoval.ps1
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\EdgeRemoval.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\EdgeRemoval.ps1
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\OneDriveRemoval.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\OneDriveRemoval.ps1
 
   - !status: {status: "Configuring Winhance power plan"}
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\PowerPlan.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\PowerPlan.ps1
 
   - !status: {status: "Running registry modications"}
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\Registry.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\Registry.ps1
 
   - !status: {status: "Disabling nonessential scheduled tasks"}
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\ScheduledTask.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\ScheduledTask.ps1
 
   - !status: {status: "Disabling not needed services"}
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\Service.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\Service.ps1
 
   # ==============================================================================
   # ADDITIONAL OPTIMIZATIONS
   # ==============================================================================
-  - !status: {status: "Setting up ActiveSetup for new users"}
-  - !run:
-    exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\ActiveSetup.ps1
-
   - !status: {status: "Switching to Pro For Workstations Edition" }
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\ProForWorkstations.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\ProForWorkstations.ps1
 
   - !status: {status: "Disabling legacy NTFS behaviors" }
   - !run: 
@@ -122,7 +132,8 @@ actions:
     destination: Bluetooth.exe
     url: https://github.com/KiyomizuSuzu/Bluetooth/releases/download/1.0.0/Bluetooth.exe
   - !run:
-    exe: C:\ProgramData\AME\OOBE\Playbook\Executables\Bluetooth.exe
+    exeDir: true
+    exe: Bluetooth.exe
     args: /off
 
   - !status: {status: "Setting file unlocker in Windows 11 context menu"}
@@ -136,14 +147,17 @@ actions:
     destination: FileUnlocker.exe
     url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/2.6.0/FileUnlocker.exe
   - !run:
+    exeDir: true
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12.zip -o"C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12" -aoa
+    args: x FileUnlocker12.zip -o"FileUnlocker12" -aoa
   - !run:
+    baseDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path 'C:\ProgramData\AME\FileUnlocker12' -Force | Out-Null"
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path '.\FileUnlocker12' -Force | Out-Null"
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker.exe' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12\key.ico' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12\install.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\FileUnlocker12\remove.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item 'C:\ProgramData\AME\OOBE\Playbook\Executables\LICENSE' 'C:\ProgramData\AME\FileUnlocker12\' -Force"
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item '.\FileUnlocker.exe' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\FileUnlocker12\key.ico' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\FileUnlocker12\install.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\FileUnlocker12\remove.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\LICENSE' 'C:\ProgramData\AME\FileUnlocker12\' -Force"
   - !run:
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -command "& 'C:\Windows\System32\cmd.exe' /c '(for /L %i in (1,1,1000) do @echo Yes) | C:\ProgramData\AME\FileUnlocker12\install.bat'" 2>$null
@@ -151,6 +165,13 @@ actions:
   # ==============================================================================
   # FINALIZING
   # ==============================================================================
+  - !status: {status: "Setting up ActiveSetup for new users", oobe: only}
+  - !run:
+    exeDir: true
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\ActiveSetup.ps1
+    oobe: only
+
   - !status: {status: "Switching to light theme", option: light, iso: true}
   - !registryValue:
       path: HKEY_LOCAL_MACHINE\SOFTWARE\AME 
@@ -168,8 +189,16 @@ actions:
       data: 1
       iso: only
 
+  - !status: {status: "Checking if live system", oobe: false}
+  - !run:
+    exeDir: true
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\LiveSystem.ps1
+    oobe: false
+
   - !status: {status: "Checking if In-place Upgrade is initiated", oobe: only}
   - !run:
+    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File C:\ProgramData\AME\OOBE\Playbook\Executables\InplaceUpgrade.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\InplaceUpgrade.ps1
     oobe: only

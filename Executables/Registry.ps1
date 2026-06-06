@@ -238,8 +238,13 @@ function Set-BinaryByte {
         Write-Log "Failed to set byte $Name because $($_.Exception.Message)" 'ERROR'
     }
 }
-
-$hive = 'AME_UserHive_Default'
+$AMEexists = Test-Path -Path 'Registry::HKEY_USERS\AME_UserHive_Default'
+if ($AMEexists) {
+    $userHive = 'Registry::HKEY_USERS\AME_UserHive_Default'
+}
+else {
+    $userHive = 'Registry::HKEY_CURRENT_USER'
+}
 $totalRAMinKB = [math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB) * 1MB
 $icoPath = "C:\Windows\blank.ico"
 try {
@@ -264,7 +269,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Show Allow my organization to manage my device prompts throughout Windows'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WorkplaceJoin" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WorkplaceJoin" `
         -Name 'BlockAADWorkplaceJoin' `
         -Type 'DWord' `
         -Value 1 `
@@ -284,7 +289,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Choose if Windows should send crash reports and error Log to Microsoft'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" `
         -Name 'Disabled' `
         -Type 'DWord' `
         -Value 1 `
@@ -304,78 +309,78 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\PowerSh
     -Type 'String' `
     -Value 'RemoteSigned' `
     -Desc 'PowerShell script execution policy'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" `
+    Set-RegistryValue -Path "$userHive\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" `
         -Name 'ExecutionPolicy' `
         -Type 'String' `
         -Value 'RemoteSigned' `
         -Desc 'Controls PowerShell script execution policy'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'ContentDeliveryAllowed' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables promotional content delivery'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SubscribedContentEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables subscribed promotional content'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'FeatureManagementEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables feature-driven promotional installations'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SoftLandingEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables tips and suggestions'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'OemPreInstalledAppsEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Blocks OEM bloatware installs'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'PreInstalledAppsEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Blocks Microsoft suggested app installs'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'PreInstalledAppsEverEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables tracking of preinstalled app activation'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SilentInstalledAppsEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Prevents silent app installs'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'RotatingLockScreenEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Windows Spotlight lock screen rotation'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'RotatingLockScreenOverlayEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables lock screen tips overlay'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SubscribedContent-338387Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables lock screen content suggestions'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" `
     -Name 'Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables advertising ID'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\CPSS\Store\AdvertisingInfo" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\CPSS\Store\AdvertisingInfo" `
     -Name 'Value' `
     -Type 'DWord' `
     -Value 0 `
@@ -385,83 +390,83 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Advertising ID control'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" `
         -Name 'DisabledByGroupPolicy' `
         -Type 'DWord' `
         -Value 1 `
         -Desc 'Disables advertising ID via policy'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\International\User Profile" `
+Set-RegistryValue -Path "$userHive\Control Panel\International\User Profile" `
     -Name 'HttpAcceptLanguageOptOut' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Prevents websites from reading language preferences'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'Start_TrackProgs' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Start menu app tracking'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SubscribedContent-338393Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Settings app suggestions'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SubscribedContent-353694Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Settings app suggestions'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SubscribedContent-353696Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Settings app suggestions'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\SystemSettings\AccountNotifications" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\SystemSettings\AccountNotifications" `
     -Name 'EnableAccountNotifications' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables account notifications in Settings'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" `
     -Name 'HasAccepted' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables online speech recognition consent'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Narrator\NoRoam" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Narrator\NoRoam" `
     -Name 'OnlineServicesEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Narrator cloud services'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Narrator\NoRoam" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Narrator\NoRoam" `
     -Name 'ScriptingEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Narrator scripting'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\CPSS\Store\InkingAndTypingPersonalization" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\CPSS\Store\InkingAndTypingPersonalization" `
     -Name 'Value' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables typing and handwriting personalization'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Personalization\Settings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Personalization\Settings" `
     -Name 'AcceptedPrivacyPolicy' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables personalization consent tracking'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\InputPersonalization" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\InputPersonalization" `
     -Name 'RestrictImplicitTextCollection' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Restricts typing data collection'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\InputPersonalization\TrainedDataStore" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\InputPersonalization\TrainedDataStore" `
     -Name 'HarvestContacts' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables contact-based learning'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" `
     -Name 'ShowedToastAtLevel' `
     -Type 'DWord' `
     -Value 1 `
@@ -471,7 +476,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Telemetry level control'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" `
         -Name 'AllowTelemetry' `
         -Type 'DWord' `
         -Value 0 `
@@ -481,7 +486,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Data collection policy'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\DataCollection" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\DataCollection" `
         -Name 'AllowTelemetry' `
         -Type 'DWord' `
         -Value 0 `
@@ -491,7 +496,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Maximum telemetry level'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" `
         -Name 'MaxTelemetryAllowed' `
         -Type 'DWord' `
         -Value 0 `
@@ -501,22 +506,22 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Application compatibility telemetry'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\AppCompat" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\AppCompat" `
         -Name 'AITEnable' `
         -Type 'DWord' `
         -Value 0 `
         -Desc 'Disables application telemetry'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Input\TIPC" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Input\TIPC" `
     -Name 'Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables inking and typing telemetry'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\CPSS\Store\ImproveInkingAndTyping" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\CPSS\Store\ImproveInkingAndTyping" `
     -Name 'Value' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables typing improvement telemetry'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Privacy" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Privacy" `
     -Name 'TailoredExperiencesWithDiagnosticDataEnabled' `
     -Type 'DWord' `
     -Value 0 `
@@ -526,34 +531,34 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Feedback prompt suppression'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\DataCollection" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\DataCollection" `
         -Name 'DoNotShowFeedbackNotifications' `
         -Type 'DWord' `
         -Value 1 `
         -Desc 'Disables feedback prompts'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Microsoft\Siuf\Rules" `
+Set-RegistryValue -Path "$userHive\SOFTWARE\Microsoft\Siuf\Rules" `
     -Name 'NumberOfSIUFInPeriod' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables feedback frequency'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
     -Name 'IsDeviceSearchHistoryEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables local search history'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
     -Name 'IsDynamicSearchBoxEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables search suggestions'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
     -Name 'IsMSACloudSearchEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Microsoft account cloud search'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\SearchSettings" `
     -Name 'IsAADCloudSearchEnabled' `
     -Type 'DWord' `
     -Value 0 `
@@ -563,7 +568,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Cortana availability'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\Windows Search" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\Windows Search" `
         -Name 'AllowCortana' `
         -Type 'DWord' `
         -Value 0 `
@@ -590,12 +595,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'OneDrive backup control'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\OneDrive" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\OneDrive" `
         -Name 'KFMBlockOptIn' `
         -Type 'DWord' `
         -Value 1 `
         -Desc 'Blocks OneDrive folder backup'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\CrossDeviceResume\Configuration" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\CrossDeviceResume\Configuration" `
     -Name 'IsOneDriveResumeAllowed' `
     -Type 'DWord' `
     -Value 0 `
@@ -607,7 +612,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Windows Copilot disable'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Windows\WindowsCopilot" `
+    Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Windows\WindowsCopilot" `
         -Name 'TurnOffWindowsCopilot' `
         -Type 'DWord' `
         -Value 1 `
@@ -662,12 +667,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Copilot runtime control'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\Shell\Copilot" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\Shell\Copilot" `
     -Name 'IsCopilotAvailable' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Copilot in shell'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\Shell\Copilot\BingChat" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\Shell\Copilot\BingChat" `
     -Name 'IsUserEligible' `
     -Type 'DWord' `
     -Value 0 `
@@ -697,12 +702,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Type 'DWord' `
     -Value 0 `
     -Desc 'AI usage data recording'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\Microsoft.Copilot_8wekyb3d8bbwe" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\Microsoft.Copilot_8wekyb3d8bbwe" `
     -Name 'Value' `
     -Type 'String' `
     -Value 'Deny' `
     -Desc 'Blocks Copilot microphone access'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe" `
     -Name 'Value' `
     -Type 'String' `
     -Value 'Deny' `
@@ -732,12 +737,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Paint Remove Background'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Input\Settings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Input\Settings" `
     -Name 'InsightsEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables input insights'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'ShowCopilotNudges' `
     -Type 'DWord' `
     -Value 0 `
@@ -811,47 +816,47 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Desc 'Edge Copilot history sharing'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Office\16.0\Common\AI\Training" `
+Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Office\16.0\Common\AI\Training" `
     -Name 'optionalconnectedexperiencesenabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Office AI training data'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Office\16.0\Common\Privacy" `
+Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Office\16.0\Common\Privacy" `
     -Name 'controllerconnectedservicesenabled' `
     -Type 'DWord' `
     -Value 2 `
     -Desc 'Controls Office connected experiences'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Office\16.0\Common\Privacy" `
+Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Office\16.0\Common\Privacy" `
     -Name 'usercontentdisabled' `
     -Type 'DWord' `
     -Value 2 `
     -Desc 'Controls Office user content access'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Office\16.0\Word\Options" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Office\16.0\Word\Options" `
     -Name 'EnableCopilot' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Word Copilot'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Office\16.0\Excel\Options" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Office\16.0\Excel\Options" `
     -Name 'EnableCopilot' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Excel Copilot'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Office\16.0\OneNote\Options\Other" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Office\16.0\OneNote\Options\Other" `
     -Name 'EnableCopilot' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables OneNote Copilot'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Office\16.0\OneNote\Options\Other" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Office\16.0\OneNote\Options\Other" `
     -Name 'EnableCopilotNotebooks' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Copilot notebooks'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Office\16.0\OneNote\Options\Other" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Office\16.0\OneNote\Options\Other" `
     -Name 'EnableCopilotSkittle' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables Copilot UI elements'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Office\16.0\Common\AI" `
+Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Office\16.0\Common\AI" `
     -Name 'contentsafetyserviceenabled' `
     -Type 'DWord' `
     -Value 0 `
@@ -881,7 +886,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\C
 # ============================================================================
 # GAMING & PERFORMANCE SETTINGS
 # ============================================================================
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Mouse" `
+Set-RegistryValue -Path "$userHive\Control Panel\Mouse" `
     -Name 'MouseSpeed' `
     -Type 'String' `
     -Value '0' `
@@ -891,7 +896,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 2 `
     -Desc 'Control whether apps can run in the background via Group Policy. Force Deny removes per-app background settings from Windows Settings. Use User in Control if you need apps like Teams, Zoom, or WhatsApp'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" `
         -Name 'LetAppsRunInBackground' `
         -Type 'DWord' `
         -Value 2 `
@@ -921,17 +926,17 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\C
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Allow Windows Search to use WebView2 (Edge) for rendering search results. Disabling removes Edge processes spawned by SearchHost.exe, reducing resource usage. Uses an undocumented Windows Feature Management override (feature ID 37926450) that may change in future Windows updates'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Desktop" `
+Set-RegistryValue -Path "$userHive\Control Panel\Desktop" `
     -Name 'JPEGImportQuality' `
     -Type 'DWord' `
     -Value 100 `
     -Desc 'JPEG wallpaper quality setting'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Desktop" `
+Set-RegistryValue -Path "$userHive\Control Panel\Desktop" `
     -Name 'MenuShowDelay' `
     -Type 'String' `
     -Value '0' `
     -Desc 'Menu display delay (0 = instant)'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'MultiTaskingAltTabFilter' `
     -Type 'DWord' `
     -Value 3 `
@@ -974,7 +979,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\C
     -Type 'DWord' `
     -Value 2 `
     -Desc 'Hardware-Accelerated GPU Scheduling'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\DirectX\UserGpuPreferences" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\DirectX\UserGpuPreferences" `
     -Name 'DirectXUserGlobalSettings' `
     -Type 'String' `
     -Value 'VRROptimizeEnable=1;AutoHDREnable=1;' `
@@ -1013,12 +1018,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Desc 'Enable Potentially Unwanted App Blocking'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\System\GameConfigStore" `
+Set-RegistryValue -Path "$userHive\System\GameConfigStore" `
     -Name 'GameDVR_Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Record gameplay clips and screenshots via Xbox Game Bar'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\GameDVR" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\GameDVR" `
     -Name 'AppCaptureEnabled' `
     -Type 'DWord' `
     -Value 0 `
@@ -1028,12 +1033,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Xbox Game Bar recording'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\GameBar" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\GameBar" `
     -Name 'UseNexusForGameBarEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable Xbox controller Game Bar shortcut'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\GameBar" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\GameBar" `
     -Name 'ShowStartupPanel' `
     -Type 'DWord' `
     -Value 0 `
@@ -1050,41 +1055,41 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\C
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Prefetch behavior'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\input" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\input" `
     -Name 'IsInputAppPreloadEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disables input experience features (touch keyboard, emoji, handwriting, etc.)'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" `
     -Name 'VisualFXSetting' `
     -Type 'DWord' `
     -Value 3 `
     -Desc 'Visual effects configuration'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Narrator\NoRoam" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Narrator\NoRoam" `
     -Name 'WinEnterLaunchEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Narrator shortcut'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Accessibility\StickyKeys" `
+Set-RegistryValue -Path "$userHive\Control Panel\Accessibility\StickyKeys" `
     -Name 'Flags' `
     -Type 'String' `
     -Value 2 `
     -Desc 'StickyKeys shortcut'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Accessibility\Keyboard Response" `
+Set-RegistryValue -Path "$userHive\Control Panel\Accessibility\Keyboard Response" `
     -Name 'Flags' `
     -Type 'String' `
     -Value 2 `
     -Desc 'FilterKeys shortcut'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Accessibility\ToggleKeys" `
+Set-RegistryValue -Path "$userHive\Control Panel\Accessibility\ToggleKeys" `
     -Name 'Flags' `
     -Type 'String' `
     -Value 34 `
     -Desc 'ToggleKeys shortcut'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Accessibility\MouseKeys" `
+Set-RegistryValue -Path "$userHive\Control Panel\Accessibility\MouseKeys" `
     -Name 'Flags' `
     -Type 'String' `
     -Value 130 `
@@ -1099,7 +1104,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Controls Windows Update automatic installation behavior'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
         -Name 'NoAutoUpdate' `
         -Type 'DWord' `
         -Value 1 `
@@ -1164,7 +1169,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Controls Windows Update notification and install mode'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
         -Name 'AUOptions' `
         -Type 'DWord' `
         -Value 1 `
@@ -1174,7 +1179,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Controls shutdown option availability during updates'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
         -Name 'NoAUShutdownOption' `
         -Type 'DWord' `
         -Value 1 `
@@ -1184,7 +1189,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Controls automatic reboot scheduling behavior'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
         -Name 'AlwaysAutoRebootAtScheduledTime' `
         -Type 'DWord' `
         -Value 0 `
@@ -1194,7 +1199,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Controls automatic installation of minor updates'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
         -Name 'AutoInstallMinorUpdates' `
         -Type 'DWord' `
         -Value 0 `
@@ -1204,7 +1209,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Controls WSUS server usage for updates'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
         -Name 'UseWUServer' `
         -Type 'DWord' `
         -Value 0 `
@@ -1216,7 +1221,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 99 `
     -Desc 'Delivery Optimization peer-to-peer download mode'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" `
         -Name 'DODownloadMode' `
         -Type 'DWord' `
         -Value 99 `
@@ -1238,7 +1243,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Prevents automatic restart while users are logged in'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" `
         -Name 'NoAutoRebootWithLoggedOnUsers' `
         -Type 'DWord' `
         -Value 1 `
@@ -1258,7 +1263,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Controls inclusion of driver updates in Windows Update'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" `
+    Set-RegistryValue -Path "$userHive\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" `
         -Name 'ExcludeWUDriversInQualityUpdate' `
         -Type 'DWord' `
         -Value 1 `
@@ -1273,12 +1278,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Policy-level metadata blocking'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Windows\DriverSearching" `
+Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Windows\DriverSearching" `
     -Name 'DontSearchWindowsUpdate' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Prevents Windows Update from searching drivers'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Windows\DriverSearching" `
+Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Windows\DriverSearching" `
     -Name 'DriverUpdateWizardWuSearchEnabled' `
     -Type 'DWord' `
     -Value 0 `
@@ -1293,7 +1298,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'System-wide suppression of driver prompts'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Windows\DriverSearching" `
+    Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Windows\DriverSearching" `
         -Name 'DontPromptForWindowsUpdate' `
         -Type 'DWord' `
         -Value 1 `
@@ -1308,68 +1313,68 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
 # ============================================================================
 # NOTIFICATIONS SETTINGS
 # ============================================================================
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" `
     -Name 'NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable lock screen toast notifications'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\PushNotifications" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\PushNotifications" `
     -Name 'LockScreenToastEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable lock screen toast notifications'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" `
     -Name 'NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable critical notifications on lock screen'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'ShowNotificationIcon' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Hide notification icon in system tray'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SubscribedContent-310093Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable "Whats new" suggestions after updates'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement" `
     -Name 'ScoobeSystemSettingEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable Windows setup suggestions'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SubscribedContent-338389Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable Windows tips and suggestions'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
     -Name 'SystemPaneSuggestionsEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable Action Center suggestions'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess" `
     -Name 'Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable capability access notifications'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" `
     -Name 'Enabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable startup app notifications'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Desktop" `
+Set-RegistryValue -Path "$userHive\Control Panel\Desktop" `
     -Name 'DstNotification' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Disable daylight saving time notifications'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" `
     -Name 'ShowGlobalPrompts' `
     -Type 'DWord' `
     -Value 0 `
@@ -1389,12 +1394,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Overrides user setting for Windows startup sound'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Multimedia\Audio" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Multimedia\Audio" `
     -Name 'UserDuckingPreference' `
     -Type 'DWord' `
     -Value 3 `
     -Desc 'Controls automatic audio ducking during communication activity'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Narrator\NoRoam" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Narrator\NoRoam" `
     -Name 'DuckAudio' `
     -Type 'DWord' `
     -Value 0 `
@@ -1409,12 +1414,12 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Stores last used voice activation configuration state'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Accessibility" `
+Set-RegistryValue -Path "$userHive\Control Panel\Accessibility" `
     -Name 'Sound on Activation' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Controls sounds when accessibility features are activated'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Accessibility" `
+Set-RegistryValue -Path "$userHive\Control Panel\Accessibility" `
     -Name 'Warning Sounds' `
     -Type 'DWord' `
     -Value 0 `
@@ -1424,7 +1429,7 @@ Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Accessibility"
 # ============================================================================
 # WINDOWS THEME
 # ============================================================================
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" `
     -Name 'EnableTransparency' `
     -Type 'DWord' `
     -Value 0 `
@@ -1434,17 +1439,17 @@ Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\C
 # ============================================================================
 # TASKBAR SETTINGS
 # ============================================================================
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'TaskbarCompanion' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Show or hide Copilot companion button on the taskbar'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'CopilotPWAPin' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Show or hide Copilot PWA pin on the taskbar'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'RecallPin' `
     -Type 'DWord' `
     -Value 0 `
@@ -1454,19 +1459,19 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsof
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Show the Widgets button that displays personalized news, weather, calendar, and other information'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Dsh" `
+Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Dsh" `
     -Name 'AllowNewsAndInterests' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Show Widgets button with personalized news, weather, calendar, and other content'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'ExtendedUIHoverTime' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Controls delay before auto-hidden taskbar appears when hovering (milliseconds). Lower values make it appear faster'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings" `
     -Name 'TaskbarEndTask' `
     -Type 'DWord' `
     -Value 1 `
@@ -1481,22 +1486,22 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyM
     -Type 'String' `
     -Value '{"pinnedList":[]}' `
     -Desc 'Clean Start Menu'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Start" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Start" `
     -Name 'ShowFrequentList' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Display your frequently launched applications at the top of the All Apps list for quick access'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'Start_TrackDocs' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Display recently opened documents and files in Start Menu SvcHostSplitThresholdInKB section for quick access'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'Start_IrisRecommendations' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Display personalized Windows suggestions such as tips, shortcuts, and Microsoft Store app recommendations in SvcHostSplitThresholdInKB section'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'Start_AccountNotifications' `
     -Type 'DWord' `
     -Value 0 `
@@ -1506,7 +1511,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Show web results from Bing alonghivee local files and apps when searching in the Start Menu'
-    Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Policies\Microsoft\Windows\Explorer" `
+    Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Windows\Explorer" `
         -Name 'DisableSearchBoxSuggestions' `
         -Type 'DWord' `
         -Value 1 `
@@ -1617,22 +1622,22 @@ Remove-RegistryKey -Path 'Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.ps
     -Desc 'Remove default run with powershell'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Lighting" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Lighting" `
     -Name 'AmbientLightingEnabled' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Allow Windows Dynamic Lighting to control ambient RGB effects on compatible devices'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Lighting" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Lighting" `
     -Name 'ControlledByForegroundApp' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Allow compatible apps to control device lighting effects'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows NT\CurrentVersion\Windows" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows NT\CurrentVersion\Windows" `
     -Name 'LegacyDefaultPrinterMode' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Let Windows automatically set your default printer based on your location or last used printer'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" `
+Set-RegistryValue -Path "$userHive\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" `
     -Name 'DisableAutoplay' `
     -Type 'DWord' `
     -Value 1 `
@@ -1644,49 +1649,49 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Desc 'AutoRun files without notice from USB when connected.' 
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'LaunchTo' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Choose what happens when File Explorer is opened'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
     -Name 'ShowRecent' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Displays recently accessed files and recommendations in Quick Access'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
     -Name 'ShowRecommendations' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Displays recently accessed files and recommendations in Quick Access'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
     -Name 'ShowFrequent' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Displays your most accessed folders in Quick Access section'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer" `
     -Name 'ShowCloudFilesInQuickAccess' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Displays cloud files from your Office.com account in Quick Access'
 
 
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" `
     -Name 'FullPath' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Allow Windows Dynamic Lighting to control ambient RGB effects on compatible devices'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'ShowTypeOverlay' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Shows file type icon overlay on bottom-right corner of thumbnail previews'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'Hidden' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Displays items with the hidden attribute set'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'HideFileExt' `
     -Type 'DWord' `
     -Value 0 `
@@ -1694,27 +1699,27 @@ Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\C
 Remove-RegistryValue -Path 'Registry::HKEY_CLASSES_ROOT\lnkfile' `
     -Name 'NeverShowExt' `
     -Desc 'Shows the .lnk extension on shortcut files when file extensions are enabled. Helps spot malicious shortcuts disguised as folders or documents.'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'HideMergeConflicts' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Automatically merges folders with same name without confirmation dialog'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'ShowEncryptCompressedColor' `
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Show encrypted or compressed NTFS files in color'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'ShowPreviewHandlers' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Enables file content preview when selecting files in Explorer'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'ShowSyncProviderNotifications' `
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Displays cloud sync status notifications from OneDrive and other sync providers'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'SharingWizardOn' `
     -Type 'DWord' `
     -Value 0 `
@@ -1758,7 +1763,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Show Gallery folder'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
     -Name 'NavPaneExpandToCurrentFolder' `
     -Type 'DWord' `
     -Value 0 `
@@ -1787,7 +1792,7 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Enables verbose startup/shutdown status messages'
-Set-RegistryValue -Path "Registry::HKEY_USERS\$hive\Control Panel\Keyboard" `
+Set-RegistryValue -Path "$userHive\Control Panel\Keyboard" `
     -Name 'InitialKeyboardIndicators' `
     -Type 'String' `
     -Value 2 `

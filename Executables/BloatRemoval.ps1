@@ -390,8 +390,15 @@ if ($hasXbox) {
     $verified = $true
     try {
         Write-Log "Applying Game DVR settings..."
-        $gameDvrPath    = 'Registry::HKEY_USERS\AME_UserHive_Default\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR'
-        $gameConfigPath = 'Registry::HKEY_USERS\AME_UserHive_Default\System\GameConfigStore'
+        $AMEexists = Test-Path -Path 'Registry::HKEY_USERS\AME_UserHive_Default'
+        if ($AMEexists) {
+            $userHive = 'Registry::HKEY_USERS\AME_UserHive_Default'
+        }
+        else {
+            $userHive = 'Registry::HKEY_CURRENT_USER'
+        }
+        $gameDvrPath    = "$userHive\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR"
+        $gameConfigPath = "$userHive\System\GameConfigStore"
         $policyPath     = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\GameDVR'
         Set-RegistryValue -Path $gameDvrPath `
             -Name 'AppCaptureEnabled' `
