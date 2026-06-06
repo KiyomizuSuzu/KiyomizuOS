@@ -90,9 +90,9 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 5. Customize any available features to modify the playbook's functionality.
 6. Build the KiyomizuOS ISO.
 7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
-8. Perform a clean installation and NOT an in-place upgrade during the setup process.
+8. Perform a clean installation during the setup process.
 
-> Only ISO Injection is supported. Live installation is not supported yet but I will add it soon.
+> In-place upgrades are supported and will preserve your current user settings.
 
 ### To Package the Playbook
 Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd
