@@ -189,7 +189,7 @@ actions:
       data: 1
       iso: only
 
-  - !status: {status: "Checking if live system", oobe: false}
+  - !status: {status: "Live system detected", oobe: false}
   - !run:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
