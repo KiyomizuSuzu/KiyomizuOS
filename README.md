@@ -108,6 +108,7 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 
 > [!NOTE]
 > An in-place upgrade is supported but it will not modify your current user settings, this is done to preserve your existing user profile.
+> A live system is primarily intended for users who want to test or use the system without installing it.
 
 ### To Package the Playbook
 Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd
