@@ -7,14 +7,18 @@
 This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.
 </p>
 
+<h2 align="center">Limitations</h1>
 <div align="center">
-
+  
 | Applies to     | ISO injection | In-place upgrade | Live system |
 |----------------|--------------|-------------------|-------------|
 | Current user   | :white_check_mark: | :x: | :white_check_mark: |
 | New users      | :white_check_mark: | :white_check_mark: | :x: |
 | System-wide    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+</div>
 
+<div align="center">
+ISO injection should be used first, followed by an in-place upgrade or a live system depending on your needs. I do not recommend using an in-place upgrade or a live system on non-KiyomizuOS systems.
 </div>
 
 ## To-do list
