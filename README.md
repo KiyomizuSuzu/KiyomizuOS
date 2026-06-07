@@ -22,7 +22,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 </p>
 
 ## To-do list
-- Discord server, maybe? https://discord.gg/q7hBvvPUG
+- Discord server, maybe? https://discord.gg/q7hBvvPUG (Still new, so barely anyone here but oh well)
 - Simple website, nothing too crazy
 
 ## Changes made
