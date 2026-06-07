@@ -21,10 +21,6 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
   <i>Fresh install should be used first, followed by an in-place upgrade or a live system, depending on your needs.</i>
 </p>
 
-## To-do list
-- Discord server, maybe? https://discord.gg/q7hBvvPUG (Still new, so barely anyone here but oh well)
-- Simple website, nothing too crazy
-
 ## Changes made
 - Customized original Winhance power plan for both laptop and desktop (auto-detect)
 - Switched to Pro For Workstation edition (highest consumer Windows edition without the enterprise features)
