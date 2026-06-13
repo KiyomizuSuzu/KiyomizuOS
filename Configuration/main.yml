@@ -141,8 +141,8 @@ actions:
     destination: Handle.zip
     url: https://download.sysinternals.com/files/Handle.zip
   - !download:
-    destination: FileInUse.exe
-    url: https://github.com/KiyomizuSuzu/FileInUse/releases/download/1.0.0/FileInUse.exe
+    destination: FileOrFolderInUse.exe
+    url: https://github.com/KiyomizuSuzu/FileOrFolderInUse/releases/download/1.0.0/FileOrFolderInUse.exe
   - !run:
     exeDir: true
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
@@ -150,31 +150,31 @@ actions:
   - !run:
     baseDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path '.\FileInUse' -Force | Out-Null"
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path '.\FileOrFolderInUse' -Force | Out-Null"
   - !run:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item '.\FileInUse.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\handle.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\handle64.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\handle64a.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\Eula.txt' 'C:\ProgramData\AME\FileInUse\' -Force"
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item '.\FileOrFolderInUse.exe' 'C:\ProgramData\AME\FileOrFolderInUse\' -Force; Copy-Item '.\handle.exe' 'C:\ProgramData\AME\FileOrFolderInUse\' -Force; Copy-Item '.\handle64.exe' 'C:\ProgramData\AME\FileOrFolderInUse\' -Force; Copy-Item '.\handle64a.exe' 'C:\ProgramData\AME\FileOrFolderInUse\' -Force; Copy-Item '.\Eula.txt' 'C:\ProgramData\AME\FileOrFolderInUse\' -Force"
   - !registryValue:
-      path: HKEY_CLASSES_ROOT\*\shell\FileInUse
+      path: HKEY_CLASSES_ROOT\*\shell\FileOrFolderInUse
       value: (Default)
       type: String
       data: Show file handles
   - !registryValue:
-      path: HKEY_CLASSES_ROOT\*\shell\FileInUse\command
+      path: HKEY_CLASSES_ROOT\*\shell\FileOrFolderInUse\command
       value: (Default)
       type: String
-      data: "C:\ProgramData\AME\FileInUse\FileInUse.exe" %*
+      data: "C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*
   - !registryValue:
-      path: HKEY_CLASSES_ROOT\Directory\shell\FileInUse
+      path: HKEY_CLASSES_ROOT\Directory\shell\FileOrFolderInUse
       value: (Default)
       type: String
       data: Show folder handles
   - !registryValue:
-      path: HKEY_CLASSES_ROOT\Directory\shell\FileInUse
+      path: HKEY_CLASSES_ROOT\Directory\shell\FileOrFolderInUse
       value: (Default)
       type: String
-      data: "C:\ProgramData\AME\FileInUse\FileInUse.exe" %*
+      data: "C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*
 
   # ==============================================================================
   # FINALIZING
