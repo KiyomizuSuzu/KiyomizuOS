@@ -138,29 +138,43 @@ actions:
 
   - !status: {status: "Setting file unlocker in Windows 11 context menu"}
   - !download:
-    destination: LICENSE
-    url: https://raw.githubusercontent.com/marianpekar/file-unlocker-for-windows/refs/heads/master/LICENSE
+    destination: Handle.zip
+    url: https://download.sysinternals.com/files/Handle.zip
   - !download:
-    destination: FileUnlocker12.zip
-    url: https://github.com/marianpekar/file-unlocker-for-windows/releases/download/v1.2/FileUnlocker12.zip
-  - !download:
-    destination: FileUnlocker.exe
-    url: https://github.com/KiyomizuSuzu/KiyomizuOS/releases/download/2.6.0/FileUnlocker.exe
+    destination: FileInUse.exe
+    url: https://github.com/KiyomizuSuzu/FileInUse/releases/download/1.0.0/FileInUse.exe
   - !run:
     exeDir: true
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x FileUnlocker12.zip -o"FileUnlocker12" -aoa
+    args: x Handle.zip -aoa
   - !run:
     baseDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path '.\FileUnlocker12' -Force | Out-Null"
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path '.\FileInUse' -Force | Out-Null"
   - !run:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item '.\FileUnlocker.exe' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\FileUnlocker12\key.ico' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\FileUnlocker12\install.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\FileUnlocker12\remove.bat' 'C:\ProgramData\AME\FileUnlocker12\' -Force; Copy-Item '.\LICENSE' 'C:\ProgramData\AME\FileUnlocker12\' -Force"
-  - !run:
-    exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -command "& 'C:\Windows\System32\cmd.exe' /c '(for /L %i in (1,1,1000) do @echo Yes) | C:\ProgramData\AME\FileUnlocker12\install.bat'" 2>$null
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item '.\FileInUse.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\handle.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\handle64.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\handle64a.exe' 'C:\ProgramData\AME\FileInUse\' -Force; Copy-Item '.\Eula.txt' 'C:\ProgramData\AME\FileInUse\' -Force"
+  - !registryValue:
+      path: HKEY_CLASSES_ROOT\*\shell\FileInUse
+      value: (Default)
+      type: String
+      data: Show file handles
+  - !registryValue:
+      path: HKEY_CLASSES_ROOT\*\shell\FileInUse\command
+      value: (Default)
+      type: String
+      data: "C:\ProgramData\AME\FileInUse\FileInUse.exe" %*
+  - !registryValue:
+      path: HKEY_CLASSES_ROOT\Directory\shell\FileInUse
+      value: (Default)
+      type: String
+      data: Show folder handles
+  - !registryValue:
+      path: HKEY_CLASSES_ROOT\Directory\shell\FileInUse
+      value: (Default)
+      type: String
+      data: "C:\ProgramData\AME\FileInUse\FileInUse.exe" %*
 
   # ==============================================================================
   # FINALIZING
