@@ -136,7 +136,7 @@ actions:
     exe: Bluetooth.exe
     args: /off
 
-  - !status: {status: "Setting file unlocker in Windows 11 context menu"}
+  - !status: {status: "Setting file/folder handler in Windows 11 context menu"}
   - !download:
     destination: Handle.zip
     url: https://download.sysinternals.com/files/Handle.zip
