@@ -158,22 +158,22 @@ actions:
   - !registryValue:
       path: HKEY_CLASSES_ROOT\*\shell\FileOrFolderInUse
       value: (Default)
-      type: String
+      type: REG_SZ
       data: Show file handles
   - !registryValue:
       path: HKEY_CLASSES_ROOT\*\shell\FileOrFolderInUse\command
       value: (Default)
-      type: String
+      type: REG_SZ
       data: "C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*
   - !registryValue:
       path: HKEY_CLASSES_ROOT\Directory\shell\FileOrFolderInUse
       value: (Default)
-      type: String
+      type: REG_SZ
       data: Show folder handles
   - !registryValue:
       path: HKEY_CLASSES_ROOT\Directory\shell\FileOrFolderInUse
       value: (Default)
-      type: String
+      type: REG_SZ
       data: "C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*
 
   # ==============================================================================
