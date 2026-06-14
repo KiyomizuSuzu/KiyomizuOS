@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DefaultAssociations>
+  <Association Identifier=".htm" ProgId="HeliumHTM" ApplicationName="Helium" />
+  <Association Identifier=".html" ProgId="HeliumHTM" ApplicationName="Helium" />
+  <Association Identifier="http" ProgId="HeliumHTM" ApplicationName="Helium" />
+  <Association Identifier="https" ProgId="HeliumHTM" ApplicationName="Helium" />
+</DefaultAssociations>

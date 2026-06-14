@@ -47,6 +47,11 @@ actions:
     exe: librewolf-151.0.2-1-windows-x86_64-setup.exe
     args: /S
     option: librewolf
+  - !run:
+    exeDir: true
+    exe: C:\Windows\System32\dism.exe
+    args: /online /Import-DefaultAppAssociations:defaultLibrewolf-assoc.xml
+    option: librewolf
 
   - !status: {status: "Installing Helium", option: helium}
   - !download:
@@ -62,6 +67,11 @@ actions:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Start-Process '.\helium_0.12.5.1_x64-installer\$TEMP\helium_install\setup.exe' -ArgumentList '--install-archive=.\helium_0.12.5.1_x64-installer\$TEMP\helium_install\helium.7z --silent --install --system-level --do-not-launch-chrome' -Wait" 2>$null
+    option: helium
+  - !run:
+    exeDir: true
+    exe: C:\Windows\System32\dism.exe
+    args: /online /Import-DefaultAppAssociations:defaultHelium-assoc.xml
     option: helium
 
   # ==============================================================================

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DefaultAssociations>
+  <Association Identifier=".htm" ProgId="LibreWolfHTM" ApplicationName="LibreWolf" />
+  <Association Identifier=".html" ProgId="LibreWolfHTM" ApplicationName="LibreWolf" />
+  <Association Identifier="http" ProgId="LibreWolfHTM" ApplicationName="LibreWolf" />
+  <Association Identifier="https" ProgId="LibreWolfHTM" ApplicationName="LibreWolf" />
+</DefaultAssociations>
