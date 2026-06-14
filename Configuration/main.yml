@@ -164,7 +164,7 @@ actions:
       path: HKEY_CLASSES_ROOT\*\shell\FileOrFolderInUse\command
       value: (Default)
       type: REG_SZ
-      data: "C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*
+      data: '"C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*'
   - !registryValue:
       path: HKEY_CLASSES_ROOT\Directory\shell\FileOrFolderInUse
       value: (Default)
@@ -174,7 +174,7 @@ actions:
       path: HKEY_CLASSES_ROOT\Directory\shell\FileOrFolderInUse
       value: (Default)
       type: REG_SZ
-      data: "C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*
+      data: '"C:\ProgramData\AME\FileOrFolderInUse\FileOrFolderInUse.exe" %*'
 
   # ==============================================================================
   # FINALIZING
