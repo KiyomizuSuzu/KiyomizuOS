@@ -38,7 +38,7 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 - BitLocker turned OFF to not automatically encrypt drives even without using a Microsoft Account because it's waiting for activation
 - Default Windows 11 wallpapers are set accordingly to your theme settings
 - Enabled both verbose messages and numpad at logon
-- Librewolf or Helium are now set as default browser and pinned to the taskbar.
+- Librewolf or Helium are now set as default browser and pinned to the taskbar
 
 Most additional changes are not listed here but can be found in [Registry.ps1](https://github.com/KiyomizuSuzu/KiyomizuOS/blob/main/Executables/Registry.ps1).
 
