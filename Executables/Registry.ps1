@@ -1481,7 +1481,7 @@ Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Exp
 # ============================================================================
 # START MENU SETTINGS
 # ============================================================================
-Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\current\device\Start' `
+Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
     -Name 'ConfigureStartPins' `
     -Type 'String' `
     -Value '{"pinnedList":[]}' `
