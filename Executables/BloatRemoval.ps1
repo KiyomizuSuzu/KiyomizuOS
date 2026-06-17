@@ -138,13 +138,14 @@ $packages = @(
     'Microsoft.XboxIdentityProvider'
     'Microsoft.Xbox.TCUI'
     'Microsoft.XboxGamingOverlay'
+    'Microsoft.XboxSpeechToTextOverlay'
     'Microsoft.WindowsSoundRecorder'
     'Microsoft.MicrosoftStickyNotes'
     'Microsoft.Todos'
     'Microsoft.YourPhone'
     'MicrosoftWindows.CrossDevice'
+    'MicrosoftWindows.Client.WebExperience'
 )
-
 $capabilities = @(
     'Browser.InternetExplorer'
     'Microsoft.Windows.PowerShell.ISE'
