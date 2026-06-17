@@ -75,6 +75,8 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 | Microsoft.Todos | Microsoft To Do |
 | Microsoft.YourPhone | Phone Link |
 | MicrosoftWindows.CrossDevice | Cross Device Experience |
+| Microsoft.XboxSpeechToTextOverlay | Xbox Speech-to-Text Overlay |
+| MicrosoftWindows.Client.WebExperience | Windows Web Experience Pack |
 
 ### Capabilities:
 | Capability | Name | Status |
