@@ -752,6 +752,11 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsof
     -Type 'DWord' `
     -Value 1 `
     -Desc 'Consumer content recommendations'
+Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent' `
+    -Name 'DisableCloudOptimizedContent' `
+    -Type 'DWord' `
+    -Value 1 `
+    -Desc 'Remove new Outlook pinned from the taskbar'
 
 
 Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge' `
