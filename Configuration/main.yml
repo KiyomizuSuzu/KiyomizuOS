@@ -234,6 +234,20 @@ actions:
       option: light
       iso: true
 
+  - !status: {status: "Disabling problematic permission", iso: only}
+  - !registryValue:
+      path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation
+      value: Value 
+      type: REG_SZ
+      data: Deny
+      iso: only
+  - !registryValue:
+      path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics
+      value: Value 
+      type: REG_SZ
+      data: Deny
+      iso: only
+
   - !status: {status: "Disabling Bitlocker completely", iso: only}
   - !registryValue:
       path: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\BitLocker 

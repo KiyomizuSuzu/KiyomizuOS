@@ -580,16 +580,6 @@ Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
     -Type 'String' `
     -Value 'Deny' `
     -Desc 'Location access control'
-Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation' `
-    -Name 'Value' `
-    -Type 'String' `
-    -Value 'Deny' `
-    -Desc 'Account info access'
-Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics' `
-    -Name 'Value' `
-    -Type 'String' `
-    -Value 'Deny' `
-    -Desc 'App diagnostics access'
 Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\OneDrive' `
     -Name 'KFMBlockOptIn' `
     -Type 'DWord' `
