@@ -1,7 +1,5 @@
 Import-Module "$PSScriptRoot\Module.psm1"
-if (-not (Initialize-RuntimeDefaults)) { 
-    return 
-}
+Initialize-RuntimeDefaults
 # ============================================================================
 # MAIN FUNCTION
 # ============================================================================

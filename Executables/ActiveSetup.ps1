@@ -1,6 +1,6 @@
-param(
-    [switch]$Phase2
-)
+param([switch]$Phase2)
+Import-Module "$PSScriptRoot\Module.psm1"
+Initialize-RuntimeDefaults
 # ============================================================================
 # CONFIGURATION
 # ============================================================================
@@ -9,15 +9,15 @@ $activeSetupScript = Join-Path -Path $activeSetupFolder "ActiveSetup.ps1"
 $hasFolderExists = Test-Path $activeSetupFolder
 try {
     if (-not $hasFolderExists) {
-        New-Item -Path $activeSetupFolder `
-            -ItemType Directory | Out-Null
+        New-Item -Path $activeSetupFolder -ItemType Directory | Out-Null
         Write-Host "Created folder: $activeSetupFolder" -ForegroundColor Green
     }
     if ($PSCommandPath) {
         if ($PSCommandPath -ne $activeSetupScript) {
             Copy-Item -Path $PSCommandPath `
                 -Destination $activeSetupScript `
-                -Force | Out-Null
+                -Force `
+                -ErrorAction Stop | Out-Null
             Write-Host "activeSetup script saved to: $activeSetupScript" -ForegroundColor Green
         }
         else {
@@ -47,10 +47,6 @@ if (-not $FolderExists) {
 $LogFileExists = Test-Path -Path $LogFile
 if (-not $Phase2 -and $LogFileExists) {
     Clear-Content $LogFile -Force
-}
-Import-Module "$PSScriptRoot\Module.psm1"
-if (-not (Initialize-RuntimeDefaults)) { 
-    return 
 }
 # ============================================================================
 # EXECUTION

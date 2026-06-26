@@ -1,7 +1,5 @@
 Import-Module "$PSScriptRoot\Module.psm1"
-if (-not (Initialize-RuntimeDefaults)) { 
-    return 
-}
+Initialize-RuntimeDefaults
 # ============================================================================
 # MAIN FUNCTION
 # ============================================================================
@@ -37,27 +35,25 @@ function Rename-File {
     $backupExists = Test-Path -Path $backup
     if (-not $fileExists) {
         Write-Log "$Name not found so nothing to rename." 'ERROR'
-        return
     }
     else {
         Write-Log "Found file $Name to rename."
-    }
-    if ($backupExists) {
-        Write-Log "Already renamed $Name to $backup." 'WARN'
-        return
-    }
-    else {
-        try {
-            $findProcess = [System.IO.Path]::GetFileNameWithoutExtension($Name)
-            Stop-Process -Name $findProcess `
-                -Force #stop any running process if needed
-            Rename-Item -Path $Path `
-                        -NewName (Split-Path $backup -Leaf) `
-                        -ErrorAction Stop
-            Write-Log "Renamed $Name to $(Split-Path $backup -Leaf)"
+        if ($backupExists) {
+            Write-Log "Already renamed $Name to $backup." 'WARN'
         }
-        catch {
-            Write-Log "Failed to rename $Name because $($_.Exception.Message)" 'ERROR'
+        else {
+            try {
+                $findProcess = [System.IO.Path]::GetFileNameWithoutExtension($Name)
+                #stop any running process if needed
+                Stop-Process -Name $findProcess -Force
+                Rename-Item -Path $Path `
+                            -NewName (Split-Path $backup -Leaf) `
+                            -ErrorAction Stop
+                Write-Log "Renamed $Name to $(Split-Path $backup -Leaf)"
+            }
+            catch {
+                Write-Log "Failed to rename $Name because $($_.Exception.Message)" 'ERROR'
+            }
         }
     }
 }

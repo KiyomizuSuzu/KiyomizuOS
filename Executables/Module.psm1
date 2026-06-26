@@ -3,11 +3,9 @@
 # ============================================================================
 function Initialize-RuntimeDefaults {
     if ($PSVersionTable.PSEdition -ne "Core") {
-        Write-Host "Windows Powershell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest" -ForegroundColor DarkCyan
-        return $false
+        throw "Windows Powershell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest"
     }
     $global:ErrorActionPreference = 'SilentlyContinue'
-    return $true
 }
 # ============================================================================
 # SETUP LOGGING
