@@ -1,28 +1,6 @@
-# ============================================================================
-# RUNTIME DEFAULTS
-# ============================================================================
-if ($PSVersionTable.PSEdition -ne "Core") {
-    Write-Host "Windows Powershell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest" -ForegroundColor DarkCyan
-    return
-}
-$ErrorActionPreference = 'SilentlyContinue'
-# ============================================================================
-# SETUP LOGGING
-# ============================================================================
-function Write-Log {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Message,
-        [ValidateSet('INFO', 'WARN', 'ERROR')]
-        [string]$Level = 'INFO'
-    )
-    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    switch ($Level) {
-        'INFO'  { $color = 'Cyan' }
-        'WARN'  { $color = 'Yellow' }
-        'ERROR' { $color = 'Red' }
-    }
-    Write-Host "[$timestamp] [$Level] $Message" -ForegroundColor $color
+Import-Module "$PSScriptRoot\Module.psm1"
+if (-not (Initialize-RuntimeDefaults)) { 
+    return 
 }
 # ============================================================================
 # MAIN FUNCTION

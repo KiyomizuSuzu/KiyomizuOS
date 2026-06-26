@@ -222,6 +222,16 @@ actions:
   - !run:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path 'C:\ProgramData\AME\ActiveSetup' -Force | Out-Null"
+    oobe: only
+  - !run:
+    exeDir: true
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item '.\Module.psm1' 'C:\ProgramData\AME\ActiveSetup\' -Force"
+    oobe: only
+  - !run:
+    exeDir: true
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\ActiveSetup.ps1
     oobe: only
 
@@ -234,7 +244,7 @@ actions:
       option: light
       iso: true
 
-  - !status: {status: "Disabling problematic permission", iso: only}
+  - !status: {status: "Disabling some protected permission", iso: true}
   - !registryValue:
       path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation
       value: Value 
@@ -247,6 +257,18 @@ actions:
       type: REG_SZ
       data: Deny
       iso: only
+  - !registryValue:
+      path: HKEY_USERS\AME_UserHive_Default\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation
+      value: Value 
+      type: REG_SZ
+      data: Deny
+      oobe: only
+  - !registryValue:
+      path: HKEY_USERS\AME_UserHive_Default\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics
+      value: Value 
+      type: REG_SZ
+      data: Deny
+      oobe: only
 
   - !status: {status: "Disabling Bitlocker completely", iso: only}
   - !registryValue:

@@ -1,81 +1,10 @@
-﻿# ============================================================================
-# RUNTIME DEFAULTS
-# ============================================================================
-if ($PSVersionTable.PSEdition -ne "Core") {
-    Write-Host "Windows Powershell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest" -ForegroundColor DarkCyan
-    return
-}
-$ErrorActionPreference = 'SilentlyContinue'
-# ============================================================================
-# SETUP LOGGING
-# ============================================================================
-function Write-Log {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Message,
-        [ValidateSet('INFO', 'WARN', 'ERROR')]
-        [string]$Level = 'INFO'
-    )
-    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    switch ($Level) {
-        'INFO'  { $color = 'Cyan' }
-        'WARN'  { $color = 'Yellow' }
-        'ERROR' { $color = 'Red' }
-    }
-    Write-Host "[$timestamp] [$Level] $Message" -ForegroundColor $color
+﻿Import-Module "$PSScriptRoot\Module.psm1"
+if (-not (Initialize-RuntimeDefaults)) { 
+    return 
 }
 # ============================================================================
 # MAIN FUNCTION
 # ============================================================================
-function Set-RegistryValue {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Path,
-        [Parameter(Mandatory)]
-        [string]$Name,
-        [Parameter(Mandatory)]
-        [ValidateSet(
-            'String',
-            'ExpandString',
-            'Binary',
-            'DWord',
-            'MultiString',
-            'QWord'
-        )]
-        [string]$Type,
-        [Parameter(Mandatory)]
-        [AllowEmptyString()]
-        $Value,
-        [string]$Desc #not required
-    )
-    $keyExists = Test-Path -Path $Path
-    try {
-        if (-not $keyExists) {
-            #create any subkeys if needed
-            New-Item -Path $Path `
-                -Force | Out-Null
-        }
-        switch ($Type) {
-            'String'       { $Value = [string]$Value }
-            'ExpandString' { $Value = [string]$Value }
-            'Binary'       { $Value = [byte[]]$Value }
-            'DWord'        { $Value = [int]$Value }
-            'QWord'        { $Value = [long]$Value }
-            'MultiString'  { $Value = [string[]]$Value }
-        }
-        #overwrites any existing value if needed
-        Set-ItemProperty -Path $Path `
-            -Name $Name `
-            -Type $Type `
-            -Value $Value `
-            -Force `
-            -ErrorAction Stop | Out-Null
-        Write-Log "Successfully set $Name value to $Value"
-    }
-    catch {
-        Write-Log "Failed to set value $Name because $($_.Exception.Message)" 'ERROR'
-    }
-}
 function Test-LegacyEdgeInstalled {
     $mainPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages'
     $allPackages = Get-ChildItem -Path $mainPath -Name
@@ -169,12 +98,11 @@ function Remove-LegacyEdge {
         }
     }
     $packagePath = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\$package"
-    #overwrites any existing value if needed
-    Set-ItemProperty -Path $packagePath `
-        -Name Visibility `
+    Set-RegistryValue -Path $packagePath `
+        -Name 'Visibility' `
+        -Type 'Dword' `
         -Value 1 `
-        -Type DWord `
-        -Force | Out-Null
+        -Desc 'Makes the package visible for servicing'
     $ownersPath = Join-Path $packagePath 'Owners'
     $ownerExists = Test-Path -Path $ownersPath
     if ($ownerExists) {
@@ -267,19 +195,25 @@ function Remove-EdgeRegistryKeys {
 }
 function Remove-AdditionalEdgeFolders {
     $folderPaths = @(
-        'C:\ProgramData\Microsoft\EdgeUpdate',
-        'C:\Windows\Temp\MsEdgeCrashpad'
+        'C:\ProgramData\Microsoft\EdgeUpdate'
     )
     try {
         foreach ($folder in $folderPaths) {
-            #deletes any files if needed
-            Remove-Item $folder `
-                -Recurse | Out-Null
-            Write-Log "Removed folder $folder"
+            $folderExists = Test-Path -Path $folder
+            if ($folderExists) {
+                #deletes any files if needed
+                Remove-Item $folder `
+                    -Recurse `
+                    -ErrorAction Stop | Out-Null
+                Write-Log "Removed folder $folder"
+            }
+            else {
+                Write-Log "$folder not found." 'WARN'
+            }
         }
     }
     catch {
-        Write-Log "$folder not found." 'ERROR'
+        Write-Log "Failed to remove $folder" 'ERROR'
     }
     $profiles = @()
     $allProfiles = Get-ChildItem -Path 'C:\Users' -Directory
@@ -292,24 +226,25 @@ function Remove-AdditionalEdgeFolders {
     try{
         foreach ($userProfile in $profiles) {
             $edgeLocal = Join-Path $userProfile.FullName 'AppData\Local\Microsoft\Edge'
-            #remove any files if needed
-            Remove-Item -Path $edgeLocal `
-                -Recurse
+            $edgeLocalExists = Test-Path -Path $edgeLocal
+            if ($edgeLocalExists) {
+                #remove any files if needed
+                Remove-Item -Path $edgeLocal `
+                    -Recurse `
+                    -ErrorAction Stop| Out-Null
+            }
         }
     }
     catch {
-        Write-Log "$edgeLocal not found." 'ERROR'
+        Write-Log "Failed to remove $edgeLocal" 'ERROR'
     }
 }
 function Install-EdgeProtocolRedirect {
     $scriptsDir = 'C:\ProgramData\AME\OpenWebSearch'
-    New-Item -ItemType Directory `
-        -Path $scriptsDir | Out-Null
     $stubTargetPath = Join-Path $scriptsDir 'ie_to_edge_stub.exe'
     $stubExists = Test-Path $stubTargetPath
     if (-not $stubExists) {
         Write-Log "$stubTargetPath not found" 'ERROR'
-        return
     }
     else {
         $edgeProto = 'Registry::HKEY_CLASSES_ROOT\microsoft-edge'

@@ -1,81 +1,10 @@
-﻿# ============================================================================
-# RUNTIME DEFAULTS
-# ============================================================================
-if ($PSVersionTable.PSEdition -ne "Core") {
-    Write-Host "Windows Powershell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest" -ForegroundColor DarkCyan
-    return
-}
-$ErrorActionPreference = 'SilentlyContinue'
-# ============================================================================
-# SETUP LOGGING
-# ============================================================================
-function Write-Log {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Message,
-        [ValidateSet('INFO', 'WARN', 'ERROR')]
-        [string]$Level = 'INFO'
-    )
-    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    switch ($Level) {
-        'INFO'  { $color = 'Cyan' }
-        'WARN'  { $color = 'Yellow' }
-        'ERROR' { $color = 'Red' }
-    }
-    Write-Host "[$timestamp] [$Level] $Message" -ForegroundColor $color
+﻿Import-Module "$PSScriptRoot\Module.psm1"
+if (-not (Initialize-RuntimeDefaults)) { 
+    return 
 }
 # ============================================================================
 # MAIN FUNCTION
 # ============================================================================
-function Set-RegistryValue {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Path,
-        [Parameter(Mandatory)]
-        [string]$Name,
-        [Parameter(Mandatory)]
-        [ValidateSet(
-            'String',
-            'ExpandString',
-            'Binary',
-            'DWord',
-            'MultiString',
-            'QWord'
-        )]
-        [string]$Type,
-        [Parameter(Mandatory)]
-        [AllowEmptyString()]
-        $Value,
-        [string]$Desc #not required
-    )
-    $keyExists = Test-Path -Path $Path
-    try {
-        if (-not $keyExists) {
-            #create any subkeys if needed
-            New-Item -Path $Path `
-                -Force | Out-Null
-        }
-        switch ($Type) {
-            'String'       { $Value = [string]$Value }
-            'ExpandString' { $Value = [string]$Value }
-            'Binary'       { $Value = [byte[]]$Value }
-            'DWord'        { $Value = [int]$Value }
-            'QWord'        { $Value = [long]$Value }
-            'MultiString'  { $Value = [string[]]$Value }
-        }
-        #overwrites any existing value if needed
-        Set-ItemProperty -Path $Path `
-            -Name $Name `
-	        -Type $Type `
-            -Value $Value `
-            -Force `
-            -ErrorAction Stop | Out-Null
-        Write-Log "Successfully set $Name value to $Value"
-    }
-    catch {
-        Write-Log "Failed to set value $Name because $($_.Exception.Message)" 'ERROR'
-    }
-}
 function Invoke-Parallel {
     param (
         [array]$Items,
@@ -162,13 +91,11 @@ $optionalFeatures = @(
 # MAIN
 # ============================================================================
 Write-Log "Discovering installed packages..."
-
 $allInstalled = Get-AppxPackage -AllUsers 
 $allProvisioned = Get-AppxProvisionedPackage -Online 
 $packagesToRemove = [System.Collections.Generic.List[string]]::new()
 $provisionedToRemove = [System.Collections.Generic.List[string]]::new()
 $notFound = [System.Collections.Generic.List[string]]::new()
-
 foreach ($package in $packages) {
     $installed = @($allInstalled | Where-Object Name -eq $package)
     $provisioned = @($allProvisioned | Where-Object DisplayName -eq $package)
@@ -189,7 +116,6 @@ foreach ($package in $packages) {
 if ($notFound.Count -gt 0) {
     Write-Log "Packages not found: $($notFound -join ', ')"
 }
-
 Invoke-Parallel -Items $provisionedToRemove `
     -ThrottleLimit 4 `
     -Label "provisioned packages" `
@@ -216,7 +142,6 @@ Invoke-Parallel -Items $provisionedToRemove `
     } `
     -SuccessFormat "Deprovisioned: {0}" `
     -FailFormat "Failed to deprovision {0}: {1}"
-
 Invoke-Parallel -Items $packagesToRemove `
     -ThrottleLimit 4 `
     -Label "installed packages" `
@@ -244,11 +169,10 @@ Invoke-Parallel -Items $packagesToRemove `
     -SuccessFormat "Removed installed package: {0}" `
     -FailFormat "Failed to remove installed package {0}: {1}"
 
-Write-Log "Processing capabilities..."
 
+Write-Log "Processing capabilities..."
 $allCaps = Get-WindowsCapability -Online
 $capNamesToRemove = [System.Collections.Generic.List[string]]::new()
-
 foreach ($capability in $capabilities) {
     $matching = @()
     foreach ($item in $allCaps) {
@@ -265,7 +189,6 @@ foreach ($capability in $capabilities) {
         Write-Log "Capability not found or not installed: $capability"
     }
 }
-
 Invoke-Parallel -Items $capNamesToRemove `
     -ThrottleLimit 4 `
     -Label "capabilities" `
@@ -293,8 +216,8 @@ Invoke-Parallel -Items $capNamesToRemove `
     -SuccessFormat "Removed capability: {0}" `
     -FailFormat "Failed to remove capability {0}: {1}"
 
-Write-Log "Processing optional features..."
 
+Write-Log "Processing optional features..."
 $enabledFeatures = foreach ($feature in $optionalFeatures) {
     try {
         $existing = Get-WindowsOptionalFeature `
@@ -343,9 +266,9 @@ if ($enabledFeatures.Count -gt 0) {
         -FailFormat "Failed to disable feature {0}: {1}"
 }
 
+
 $hasXbox = $packages -contains 'Microsoft.GamingApp' -or
            $packages -contains 'Microsoft.XboxGamingOverlay'
-
 if ($hasXbox) {
     Write-Log "Applying Xbox/Game Bar registry settings..."
     $protocols = @(
@@ -391,13 +314,8 @@ if ($hasXbox) {
     $verified = $true
     try {
         Write-Log "Applying Game DVR settings..."
-        $AMEexists = Test-Path -Path 'Registry::HKEY_USERS\AME_UserHive_Default'
-        if ($AMEexists) {
-            $userHive = 'Registry::HKEY_USERS\AME_UserHive_Default'
-        }
-        else {
-            $userHive = 'Registry::HKEY_CURRENT_USER'
-        }
+        $AME = 'Registry::HKEY_USERS\AME_UserHive_Default'
+        $userHive = (Test-Path $AME) ? $AME : 'Registry::HKEY_CURRENT_USER'
         $gameDvrPath    = "$userHive\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR"
         $gameConfigPath = "$userHive\System\GameConfigStore"
         $policyPath     = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\GameDVR'

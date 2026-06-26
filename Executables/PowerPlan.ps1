@@ -1,28 +1,6 @@
-# ============================================================================
-# RUNTIME DEFAULTS
-# ============================================================================
-if ($PSVersionTable.PSEdition -ne "Core") {
-    Write-Host "Windows Powershell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest" -ForegroundColor DarkCyan
-    return
-}
-$ErrorActionPreference = 'SilentlyContinue'
-# ============================================================================
-# SETUP LOGGING
-# ============================================================================
-function Write-Log {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Message,
-        [ValidateSet('INFO', 'WARN', 'ERROR')]
-        [string]$Level = 'INFO'
-    )
-    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    switch ($Level) {
-        'INFO'  { $color = 'Cyan' }
-        'WARN'  { $color = 'Yellow' }
-        'ERROR' { $color = 'Red' }
-    }
-    Write-Host "[$timestamp] [$Level] $Message" -ForegroundColor $color
+Import-Module "$PSScriptRoot\Module.psm1"
+if (-not (Initialize-RuntimeDefaults)) { 
+    return 
 }
 # ============================================================================
 # MAIN FUNCTION
@@ -51,7 +29,6 @@ function New-Powerplan {
     $guidExists = powercfg /query $Guid 2>$null
     if ($guidExists -notmatch "The power scheme, subgroup or setting specified does not exist.") {
         Write-Log "Powerplan already exists" 'WARN'
-        return
     }
     else {
         powercfg /duplicatescheme $scheme $Guid
@@ -95,25 +72,31 @@ function Set-Powersettings {
         [string]$Plugged,
         [Parameter(Mandatory)]
         [string]$Battery,
+        [Parameter(Mandatory)]
+        [string[]]$QueryOutput,
         [string]$Desc #not required
     )
-    $idExists = powercfg /query $ID 2>$null
-    if ($idExists -match "The power scheme, subgroup or setting specified does not exist.") {
-        Write-Log "$ID doesn't exist." 'ERROR'
-        return
+    try {
+        if ($QueryOutput -match "The power scheme, subgroup or setting specified does not exist.") {
+            Write-Log "$ID doesn't exist." 'ERROR'
+            return
+        }
+        throw #trigger catch
     }
-    if (-not ($idExists -match "$Set")) {
-        Write-Log "$Set doesn't exist." 'ERROR'
-        return
-    }
-    elseif (-not ($idExists -match "$Group")) {
-        Write-Log "$Group doesn't exist." 'ERROR'
-        return
-    }
-    else {
-        powercfg /setacvalueindex $ID $Group $Set $Plugged
-        powercfg /setdcvalueindex $ID $Group $Set $Battery
-        Write-Log "Successfully set $Set"
+    catch {
+        if (-not ($QueryOutput -match "$Set")) {
+            Write-Log "$Set doesn't exist." 'ERROR'
+            return
+        }
+        elseif (-not ($QueryOutput -match "$Group")) {
+            Write-Log "$Group doesn't exist." 'ERROR'
+            return
+        }
+        else {
+            powercfg /setacvalueindex $ID $Group $Set $Plugged
+            powercfg /setdcvalueindex $ID $Group $Set $Battery
+            Write-Log "Successfully set $Set"
+        }
     }
 }
 function Set-ActivePowerplan {
@@ -124,7 +107,6 @@ function Set-ActivePowerplan {
     $activeScheme = powercfg /getactivescheme 2>$null
     if ($activeScheme -match [regex]::Escape($Identifier)) {
         Write-Log "Powerplan $Identifier is already active." 'WARN'
-        return
     }
     else {
         powercfg /setactive $Identifier
@@ -137,19 +119,7 @@ function Set-ActivePowerplan {
 $chassisType = (Get-CimInstance -ClassName Win32_SystemEnclosure).ChassisTypes
 $laptop = $chassisType -match '8|9|10|14|30|31|32'
 $desktop = $chassisType -match '3|4|5|6|7|12|13|22|23|24|29'
-$others = $chassisType -match '1|2|11|15|16|17|18|19|20|21|25|26|27|28'
-if ($laptop) {
-    Write-Log "This is a laptop."
-    $device = 0 #disabled
-} 
-elseif ($desktop) {
-    Write-Log "This is a desktop PC."
-    $device = 2 #aggressive
-}
-elseif ($others) {
-    Write-Log "This doesn't appear to be Desktop or a laptop either." 'WARN'
-    $device = 1 #enabled by default
-}
+$device = $laptop ? 0 : ($desktop ? 2 : 1)
 $hiddenSettingsToEnable = @(
     @{ Subgroup = "2a737441-1930-4402-8d77-b2bebba308a3"; Setting = "0853a681-27c8-4100-a2fd-82013e970683"; Desc = 'USB selective suspend setting'}
     @{ Subgroup = "2a737441-1930-4402-8d77-b2bebba308a3"; Setting = "d4e98f31-5ffe-4ce1-be31-1b38b384c009"; Desc = 'USB 3 Link Power Management'}
@@ -285,11 +255,13 @@ foreach ($hidden in $hiddenSettingsToEnable) {
         -Setting $hidden.Setting
 }
 Write-Log "Applying current powerplan settings"
+$cacheOutput = powercfg /query $CustomPlanGuid 2>$null
 foreach ($setting in $settingsToApply) {
     Set-Powersettings -ID $CustomPlanGuid `
         -Set $setting.Main `
         -Group $setting.Sub `
         -Plugged $setting.AC `
-        -Battery $setting.DC
+        -Battery $setting.DC `
+        -QueryOutput $cacheOutput
 }
 Set-ActivePowerplan -Identifier $CustomPlanGuid
