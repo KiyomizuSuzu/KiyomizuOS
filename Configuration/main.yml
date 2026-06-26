@@ -220,7 +220,6 @@ actions:
 
   - !status: {status: "Setting up ActiveSetup for new users", oobe: only}
   - !run:
-    exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "New-Item -ItemType Directory -Path 'C:\ProgramData\AME\ActiveSetup' -Force | Out-Null"
     oobe: only
