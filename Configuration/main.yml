@@ -285,6 +285,12 @@ actions:
     oobe: false
 
   - !status: {status: "Checking if In-place Upgrade is initiated", oobe: only}
+  - !registryValue:
+      path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+      value: EnableFirstLogonAnimation
+      type: REG_DWORD
+      data: 0
+      oobe: only
   - !run:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe

@@ -80,7 +80,7 @@ function Stop-EdgeProcesses {
             Write-Log "Stopped $count instance(s) of $name"
         }
         else {
-            Write-Log "$name isn't running." 'ERROR'
+            Write-Log "$name isn't running." 'WARN'
         }
     }
 }
@@ -187,7 +187,7 @@ function Remove-EdgeRegistryKeys {
             Write-Log "Removed key $path"
         }
         catch {
-            Write-Log "$path not found" 'ERROR'
+            Write-Log "$path not found" 'WARN'
         }
     }
 }
