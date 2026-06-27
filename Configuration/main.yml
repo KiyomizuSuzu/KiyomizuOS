@@ -287,9 +287,9 @@ actions:
   - !status: {status: "Checking if In-place Upgrade is initiated", oobe: only}
   - !registryValue:
       path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
-      value: EnableFirstLogonAnimation
+      value: AutomaticRestartSignOnConfig
       type: REG_DWORD
-      data: 0
+      data: 1
       oobe: only
   - !run:
     exeDir: true

@@ -15,7 +15,7 @@ $LocalAccounts = (Get-LocalUser).Where({
 # ============================================================================
 # EXECUTION
 # ============================================================================
-if ($LocalAccount.Count -eq 0) {
+if ($LocalAccounts.Count -eq 0) {
     Write-Log "No Local Account was made yet."
 }
 else {
@@ -34,6 +34,11 @@ else {
             -Value $lightTheme `
             -Desc 'System theme mode'
     }
+    Set-registryValue -path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' `
+        -Name 'EnableFirstLogonAnimation' `
+        -Type: 'DWord' `
+        -Value: 0 `
+        -Desc 'Remove the animation setting up new user'
     Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' `
         -Name 'Shell' `
         -Type 'String' `
