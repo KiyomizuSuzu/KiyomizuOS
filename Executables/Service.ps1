@@ -34,7 +34,7 @@ function Rename-File {
     $fileExists = Test-Path -Path $Path
     $backupExists = Test-Path -Path $backup
     if (-not $fileExists) {
-        Write-Log "$Name not found so nothing to rename." 'ERROR'
+        Write-Log "$Name not found so nothing to rename." 'WARN'
     }
     else {
         Write-Log "Found file $Name to rename."

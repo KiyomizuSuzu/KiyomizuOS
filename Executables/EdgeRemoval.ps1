@@ -25,7 +25,7 @@ function Test-LegacyEdgeInstalled {
         throw #trigger catch
     }
     catch {
-        Write-Log "Found no Legacy Edge installed." 'ERROR'
+        Write-Log "Found no Legacy Edge installed." 'WARN'
         return $false
     }
 }
@@ -60,7 +60,7 @@ function Test-ChromiumEdgeInstalled {
         throw #trigger catch
     }
     catch {
-        Write-Log "Found no Chromium Edge installed." 'ERROR'
+        Write-Log "Found no Chromium Edge installed." 'WARN'
         return $false
     }
 }
@@ -280,7 +280,7 @@ $cleanup = $false
 $stubPath = $null
 
 if (-not $legacyInstalled -and -not $chromiumInstalled) {
-    Write-Log 'No Edge installations detected' 'ERROR'
+    Write-Log 'No Edge installations detected' 'WARN'
 }
 else {
     if ($chromiumInstalled) {

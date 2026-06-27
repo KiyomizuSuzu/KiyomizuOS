@@ -100,7 +100,7 @@ function Remove-RegistryValue {
     if ($keyExists) {
         try {
             $item = Get-ItemProperty -Path $Path
-            if ($item.PSObject.Properties.Match($Name)) {
+            if ($Name -in $item.PSObject.Properties.Name) {
                 Remove-ItemProperty -Path $Path `
                     -Name $Name `
                     -ErrorAction Stop | Out-Null
