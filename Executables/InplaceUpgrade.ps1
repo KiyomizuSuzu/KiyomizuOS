@@ -23,9 +23,10 @@ switch ($Mode) {
         $winLogonPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
         $currentShell = (Get-ItemProperty -Path $winLogonPath -Name 'Shell').Shell
         if ($UpgradeKeyExists) {
-            $service = Get-Service 'ameoobe'
+            $ameoobe = 'ameoobe'
+            $service = Get-Service $ameoobe
             if ($service.Status -ne 'Running') {
-                Start-Service $service
+                Start-Service -Name $ameoobe
             }
             $lightTheme = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\AME').UseLightTheme -eq 1) ? 1 : 0
             Set-RegistryValue -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" `
