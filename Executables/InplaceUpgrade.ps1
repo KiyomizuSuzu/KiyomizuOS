@@ -28,6 +28,9 @@ switch ($Mode) {
             if ($service.Status -ne 'Running') {
                 Start-Service -Name $ameoobe
             }
+        }
+        elseif ($currentShell -ne 'explorer.exe') {
+            Write-Log "InPlaceUpgrade detected! Restoring explorer.exe for you..."
             $lightTheme = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\AME').UseLightTheme -eq 1) ? 1 : 0
             Set-RegistryValue -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" `
                 -Name 'AppsUseLightTheme' `
@@ -39,9 +42,6 @@ switch ($Mode) {
                 -Type 'DWord' `
                 -Value $lightTheme `
                 -Desc 'System theme mode'
-        }
-        elseif ($currentShell -ne 'explorer.exe') {
-            Write-Log "InPlaceUpgrade detected! Restoring explorer.exe for you..."
             Set-RegistryValue -Path $winLogonPath `
                 -Name 'Shell' `
                 -Type 'String' `
@@ -53,12 +53,12 @@ switch ($Mode) {
     'OOBE' {
         if ($LocalAccounts.Count -eq 0) {
             Write-Log "No Local Account was made yet."
-            Register-ScheduledTask -TaskName "AME Upgrade" `
-                -Action (New-ScheduledTaskAction -Execute "C:\Program Files\PowerShell\7\pwsh.exe" `
-                -Argument '-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "C:\ProgramData\AME\ActiveSetup\InplaceUpgrade.ps1" -Mode Startup') `
-                -Trigger (New-ScheduledTaskTrigger -AtLogOn) `
-                -Principal (New-ScheduledTaskPrincipal -GroupId "S-1-5-4" -RunLevel Highest) `
-                -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries)
+                Register-ScheduledTask -TaskName "AME Upgrade" `
+                    -Action (New-ScheduledTaskAction -Execute "C:\Windows\System32\conhost.exe" `
+                    -Argument '--headless "C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\ProgramData\AME\ActiveSetup\InplaceUpgrade.ps1" -Mode Startup') `
+                    -Trigger (New-ScheduledTaskTrigger -AtLogOn) `
+                    -Principal (New-ScheduledTaskPrincipal -GroupId "S-1-5-4" -RunLevel Highest) `
+                    -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries)
         }
         else {
             Write-Log "Found $($LocalAccounts.Name -join ', ')" 'WARN'
