@@ -282,17 +282,17 @@ actions:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
     args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\LiveSystem.ps1
+    runas: currentUserElevated
     oobe: false
 
   - !status: {status: "Checking if In-place Upgrade is initiated", oobe: only}
-  - !registryValue:
-      path: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
-      value: AutomaticRestartSignOnConfig
-      type: REG_DWORD
-      data: 1
-      oobe: only
   - !run:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\InplaceUpgrade.ps1
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Copy-Item '.\InplaceUpgrade.ps1' 'C:\ProgramData\AME\ActiveSetup\' -Force"
+    oobe: only
+  - !run:
+    exeDir: true
+    exe: C:\Program Files\PowerShell\7\pwsh.exe
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -File .\InplaceUpgrade.ps1 -Mode OOBE
     oobe: only
