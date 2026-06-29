@@ -54,7 +54,7 @@ switch ($Mode) {
             Write-Log "No Local Account was made yet."
             Register-ScheduledTask -TaskName "AME Upgrade" `
                 -Action (New-ScheduledTaskAction -Execute "C:\Program Files\PowerShell\7\pwsh.exe" `
-                -Argument '-NoProfile -ExecutionPolicy Bypass -File "C:\ProgramData\AME\ActiveSetup\InplaceUpgrade.ps1" -Mode Startup') `
+                -Argument '-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "C:\ProgramData\AME\ActiveSetup\InplaceUpgrade.ps1" -Mode Startup') `
                 -Trigger (New-ScheduledTaskTrigger -AtLogOn) `
                 -Principal (New-ScheduledTaskPrincipal -GroupId "S-1-5-4" -RunLevel Highest) `
                 -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries)
