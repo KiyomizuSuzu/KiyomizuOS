@@ -42,7 +42,7 @@ switch ($Mode) {
         }
         elseif ($currentShell -ne 'explorer.exe') {
             Write-Log "InPlaceUpgrade detected! Restoring explorer.exe for you..."
-            Set-RegistryValue -Path $path `
+            Set-RegistryValue -Path $winLogonPath `
                 -Name 'Shell' `
                 -Type 'String' `
                 -Value 'explorer.exe' `
