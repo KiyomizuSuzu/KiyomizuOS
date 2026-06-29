@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/Profile.avif"
+  <img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif"
        width="50%">
 </p>
 <h1 align="center">KiyomizuOS</h1>
