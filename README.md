@@ -255,9 +255,10 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
 8. Perform a clean installation during the setup process.
 
-**Note**
-> An in-place upgrade is supported but it will not modify your current user settings, this is done to preserve your existing user profile.
-> The live system primarily affects the currently signed-in user account, while making only secondary changes to the local machine.
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>An in-place upgrade is supported but it will not modify your current user settings, this is done to preserve your existing user profile.</p>
+<p>The live system primarily affects the currently signed-in user account, while making only secondary changes to the local machine.</p>
 
 ### To Package the Playbook
 Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd
