@@ -256,7 +256,6 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 
 > [!NOTE]
 > An in-place upgrade is supported but it will not modify your current user settings, this is done to preserve your existing user profile.
-> 
 > The live system primarily affects the currently signed-in user account, while making only secondary changes to the local machine.
 
 ### To Package the Playbook
