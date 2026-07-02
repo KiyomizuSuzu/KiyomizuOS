@@ -255,7 +255,11 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
 8. Perform a clean installation during the setup process.
 
->[!NOTE]
+<blockquote>
+<p><strong>Note</strong><br>
+上書きアップグレードにも対応しているが...</p>
+</blockquote>
+**Note**
 > An in-place upgrade is supported but it will not modify your current user settings, this is done to preserve your existing user profile.
 > The live system primarily affects the currently signed-in user account, while making only secondary changes to the local machine.
 
