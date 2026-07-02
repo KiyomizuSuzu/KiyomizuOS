@@ -143,6 +143,7 @@ AGPL-3.0に従う以上、対象コードは同じライセンスのまま維持
 ライセンス全文は[LICENSE.txt](https://github.com/KiyomizuSuzu/Bluetooth/blob/main/LICENSE.txt)を参照。
 </details>
 
+---
 <details open>
 <summary>English</summary>
 
