@@ -108,7 +108,7 @@
 7. 生成された`.iso`ファイルをエクスプローラーでマウントし、マウントしたISOのルートにある`setup.exe`を実行する。
 8. セットアップ中はクリーンインストールを選ぶ。
 
-**NOTE**
+> **NOTE**
 > 上書きアップグレードにも対応しているが、既存のユーザープロファイルを維持するため、現在のユーザー設定は変更されない。
 >
 > 稼働中のシステムに適用した場合、影響が及ぶのは主に現在サインインしているユーザーアカウントで、ローカルマシン側への変更は副次的なものにとどまる。
@@ -254,7 +254,7 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
 8. Perform a clean installation during the setup process.
 
-**NOTE**
+> **NOTE**
 > An in-place upgrade is supported but it will not modify your current user settings, this is done to preserve your existing user profile.
 > 
 > The live system primarily affects the currently signed-in user account, while making only secondary changes to the local machine.
