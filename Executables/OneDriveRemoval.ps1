@@ -30,12 +30,13 @@ function Remove-File {
 # ============================================================================
 Write-Log 'Removing Onedrive from Windows 11'
 
+$mainPath = 'C:\Program Files\Microsoft OneDrive'
 $paths = @(
-    "C:\Program Files\Microsoft OneDrive",
+    $mainPath,
     "$env:LOCALAPPDATA\Microsoft\OneDrive",
     "C:\Users\Default\OneDrive"
 )
-$exeExists = Get-ChildItem $programFilesPath `
+$exeExists = Get-ChildItem $mainPath `
     -Filter "OneDriveSetup.exe" `
     -Recurse | Select-Object -First 1 -ExpandProperty FullName
 if ($exeExists) {
@@ -44,9 +45,9 @@ if ($exeExists) {
     Start-Process -FilePath $exeExists -ArgumentList "/uninstall /allusers" -Wait
     Get-Process explorer, dllhost | Stop-Process -Force
     foreach ($found in $paths) {
-        if (Test-Path -Path $path) {
+        if (Test-Path -Path $found) {
             Write-Log "Removed $found"
-            Remove-Item $path `
+            Remove-Item $found `
                 -Recurse `
                 -Force | Out-Null
         }
