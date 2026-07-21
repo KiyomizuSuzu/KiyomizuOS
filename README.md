@@ -1,5 +1,4 @@
-<details>
-<summary>日本語</summary>
+<details><summary>日本語</summary>
 <p align="center">
   <img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif" width="50%">
 </p>
@@ -128,8 +127,7 @@ AGPL-3.0に従う以上、対象コードは同じライセンスのまま維持
 </details>
 
 ---
-<details open>
-<summary>English</summary>
+<details open><summary>English</summary>
 <p align="center"><img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif" width="50%"></p>
 <h1 align="center">KiyomizuOS</h1>
 <p align="center">This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.</p>
