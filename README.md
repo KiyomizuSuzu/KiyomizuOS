@@ -1,28 +1,20 @@
 <details>
 <summary>日本語</summary>
-
 <p align="center">
-  <img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif"
-       width="50%">
+  <img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif" width="50%">
 </p>
 <h1 align="center">KiyomizuOS</h1>
-<p align="center">
-<a href="https://winhance.net">Winhance</a>をベースにしたプレイブック。主にPowerShellスクリプト（できればPowerShell 7）を使い、<a href="https://amelabs.net">AME Wizard</a>経由でWindows 11のデブロートとカスタマイズを行う。
-</p>
-
+<p align="center"><a href="https://winhance.net">Winhance</a>をベースにしたプレイブック。主にPowerShellスクリプト（できればPowerShell 7）を使い、<a href="https://amelabs.net">AME Wizard</a>経由でWindows 11のデブロートとカスタマイズを行う。</p>
 <h2 align="center">制限事項</h1>
 <div align="center">
-  
-| 適用範囲     | クリーンインストール | 上書きアップグレード | 稼働中のシステム |
-|----------------|--------------|-------------------|-------------|
-| 現在のユーザー   | :white_check_mark: | :x: | :white_check_mark: |
-| 新規ユーザー      | :white_check_mark: | :white_check_mark: | :x: |
-| システム全体    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-</div>
 
-<p align="center">
-  <i>まずはクリーンインストールで使い、必要に応じて上書きアップグレードや稼働中のシステムへの適用を検討するといい。</i>
-</p>
+| 適用範囲        | クリーンインストール  | 上書きアップグレード  | 稼働中のシステム     |
+|----------------|---------------------|---------------------|---------------------|
+| 現在のユーザー  | :white_check_mark:  | :x:                 | :white_check_mark:  |
+| 新規ユーザー    | :white_check_mark:  | :white_check_mark:  | :x:                 |
+| システム全体    | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |
+</div>
+<p align="center"><i>まずはクリーンインストールで使い、必要に応じて上書きアップグレードや稼働中のシステムへの適用を検討するといい。</i></p>
 
 ## 変更内容
 - ノートPC・デスクトップ両対応でWinhance純正の電源プランをカスタマイズ（自動判定）
@@ -44,61 +36,56 @@
 - LibreWolfまたはHeliumを既定のブラウザに設定し、タスクバーにピン留め
 
 その他の細かい変更点はここには載せていないが、[Registry.ps1](https://github.com/KiyomizuSuzu/KiyomizuOS/blob/main/Executables/Registry.ps1)で確認できる。
-
 ## 削除されるコンポーネント一覧
 ### 手動削除（非標準）:
 - Microsoft EdgeとOneDrive
-
 ### Appxパッケージ:
-| パッケージ名 | アプリ名 |
-|--------------|----------|
-| Microsoft.BingSearch | Bing Search |
-| Microsoft.BingNews | Bing News |
-| Microsoft.BingWeather | Bing Weather |
-| Microsoft.WindowsCamera | Camera |
-| Clipchamp.Clipchamp | Clipchamp |
-| Microsoft.WindowsAlarms | Alarms & Clock |
-| Microsoft.GetHelp | Get Help |
-| Microsoft.WindowsCalculator | Calculator |
-| Microsoft.Windows.DevHome | Dev Home |
-| MSTeams | Microsoft Teams |
-| Microsoft.WindowsFeedbackHub | Feedback Hub |
-| Microsoft.WindowsTerminal | Windows Terminal |
-| Microsoft.MicrosoftOfficeHub | Microsoft Office Hub |
-| Microsoft.OutlookForWindows | Outlook for Windows |
-| Microsoft.PowerAutomateDesktop | Power Automate Desktop |
-| MicrosoftCorporationII.QuickAssist | Quick Assist |
-| Microsoft.MicrosoftSolitaireCollection | Microsoft Solitaire Collection |
-| Microsoft.GamingApp | Xbox App |
-| Microsoft.XboxIdentityProvider | Xbox Identity Provider |
-| Microsoft.Xbox.TCUI | Xbox TCUI |
-| Microsoft.XboxGamingOverlay | Xbox Game Bar Overlay |
-| Microsoft.XboxSpeechToTextOverlay | Xbox Speech-to-Text Overlay |
-| Microsoft.WindowsSoundRecorder | Sound Recorder |
-| Microsoft.MicrosoftStickyNotes | Sticky Notes |
-| Microsoft.Todos | Microsoft To Do |
-| Microsoft.YourPhone | Phone Link |
-| MicrosoftWindows.CrossDevice | Cross Device Experience |
-| MicrosoftWindows.Client.WebExperience | Windows Web Experience Pack |
-
+| パッケージ名                             | アプリ名                         |
+|-----------------------------------------|---------------------------------|
+| Microsoft.BingSearch                    | Bing Search                     |
+| Microsoft.BingNews                      | Bing News                       |
+| Microsoft.BingWeather                   | Bing Weather                    |
+| Microsoft.WindowsCamera                 | Camera                          |
+| Clipchamp.Clipchamp                     | Clipchamp                       |
+| Microsoft.WindowsAlarms                 | Alarms & Clock                  |
+| Microsoft.GetHelp                       | Get Help                        |
+| Microsoft.WindowsCalculator             | Calculator                      |
+| Microsoft.Windows.DevHome               | Dev Home                        |
+| MSTeams                                 | Microsoft Teams                 |
+| Microsoft.WindowsFeedbackHub            | Feedback Hub                    |
+| Microsoft.WindowsTerminal               | Windows Terminal                |
+| Microsoft.MicrosoftOfficeHub            | Microsoft Office Hub            |
+| Microsoft.OutlookForWindows             | Outlook for Windows             |
+| Microsoft.PowerAutomateDesktop          | Power Automate Desktop          |
+| MicrosoftCorporationII.QuickAssist      | Quick Assist                    |
+| Microsoft.MicrosoftSolitaireCollection  | Microsoft Solitaire Collection  |
+| Microsoft.GamingApp                     | Xbox App                        |
+| Microsoft.XboxIdentityProvider          | Xbox Identity Provider          |
+| Microsoft.Xbox.TCUI                     | Xbox TCUI                       |
+| Microsoft.XboxGamingOverlay             | Xbox Game Bar Overlay           |
+| Microsoft.XboxSpeechToTextOverlay       | Xbox Speech-to-Text Overlay     |
+| Microsoft.WindowsSoundRecorder          | Sound Recorder                  |
+| Microsoft.MicrosoftStickyNotes          | Sticky Notes                    |
+| Microsoft.Todos                         | Microsoft To Do                 |
+| Microsoft.YourPhone                     | Phone Link                      |
+| MicrosoftWindows.CrossDevice            | Cross Device Experience         |
+| MicrosoftWindows.Client.WebExperience   | Windows Web Experience Pack     |
 ### Capabilities:
-| Capability | 名前 | 状態 |
-|------------|------|--------|
-| Browser.InternetExplorer | Internet Explorer | <div align="center">廃止予定</div> |
-| Microsoft.Windows.PowerShell.ISE | PowerShell ISE | <div align="center">廃止予定</div> |
-| App.StepsRecorder | Steps Recorder | <div align="center">廃止予定</div> |
-| Media.WindowsMediaPlayer | Windows Media Player | <div align="center">レガシー</div> |
-| Microsoft.Windows.Notepad | Notepad | <div align="center">レガシー</div> |
-| OpenSSH.Client | OpenSSH Client | <div align="center">有効</div> |
-| MathRecognizer | Math Recognition | <div align="center">廃止予定</div> |
-
+| Capability                        | 名前                  | 状態                                |
+|-----------------------------------|-----------------------|------------------------------------|
+| Browser.InternetExplorer          | Internet Explorer     | <div align="center">廃止予定</div>  |
+| Microsoft.Windows.PowerShell.ISE  | PowerShell ISE        | <div align="center">廃止予定</div>  |
+| App.StepsRecorder                 | Steps Recorder        | <div align="center">廃止予定</div>  |
+| Media.WindowsMediaPlayer          | Windows Media Player  | <div align="center">レガシー</div>  |
+| Microsoft.Windows.Notepad         | Notepad               | <div align="center">レガシー</div>  |
+| OpenSSH.Client                    | OpenSSH Client        | <div align="center">有効</div>      |
+| MathRecognizer                    | Math Recognition      | <div align="center">廃止予定</div>  |
 ### オプション機能:
-| Feature | 名前 | 状態 |
-|---------|------|--------|
-| Microsoft-RemoteDesktopConnection | Remote Desktop Connection | <div align="center">有効</div> |
+| Feature                           | 名前                      | 状態                             |
+|-----------------------------------|---------------------------|---------------------------------|
+| Microsoft-RemoteDesktopConnection | Remote Desktop Connection | <div align="center">有効</div>  |
 ---
 ### インストール手順
-
 1. [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli/releases/latest)と有効な[Windows 11 ISO](https://massgrave.dev/windows_11_links)を用意する。
 2. AME Betaを開き、`.iso`ファイルをアプリにドラッグする。
 3. `KiyomizuOS.apbx` ファイルを選択する。
@@ -107,12 +94,10 @@
 6. KiyomizuOSのISOをビルドする。
 7. 生成された`.iso`ファイルをエクスプローラーでマウントし、マウントしたISOのルートにある`setup.exe`を実行する。
 8. セットアップ中はクリーンインストールを選ぶ。
-
 > **注記** <br>
 > 上書きアップグレードにも対応しているが、既存のユーザープロファイルを維持するため、現在のユーザー設定は変更されない。
 >
 > 稼働中のシステムに適用した場合、影響が及ぶのは主に現在サインインしているユーザーアカウントで、ローカルマシン側への変更は副次的なものにとどまる。
-
 ### プレイブックのパッケージ化
 7-Zip ZSが必要。https://github.com/mcmilk/7-Zip-zstd からインストールできる。
 
@@ -132,7 +117,6 @@
 - [Sysinternals Handle](https://learn.microsoft.com/en-us/sysinternals/downloads/handle) — Sysinternalsソフトウェアライセンス条項
 
 サードパーティ製ソフトウェアの元のライセンスおよび著作権表示は、それぞれの配布物に含まれている。
-
 ## AGPL-3.0 ライセンス
 参照：https://licenses.opensource.jp/AGPL-3.0/AGPL-3.0.html
 
@@ -146,29 +130,19 @@ AGPL-3.0に従う以上、対象コードは同じライセンスのまま維持
 ---
 <details open>
 <summary>English</summary>
-
-<p align="center">
-  <img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif"
-       width="50%">
-</p>
+<p align="center"><img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif" width="50%"></p>
 <h1 align="center">KiyomizuOS</h1>
-<p align="center">
-This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.
-</p>
-
+<p align="center">This is a playbook based on <a href="https://winhance.net">Winhance</a> that primarily relies on PowerShell scripts, preferably PowerShell 7, to debloat and customize Windows 11 using <a href="https://amelabs.net">AME Wizard</a>.</p>
 <h2 align="center">Limitations</h1>
 <div align="center">
-  
-| Applies to     | Fresh install | In-place upgrade | Live system |
-|----------------|--------------|-------------------|-------------|
-| Current user   | :white_check_mark: | :x: | :white_check_mark: |
-| New users      | :white_check_mark: | :white_check_mark: | :x: |
-| System-wide    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-</div>
 
-<p align="center">
-  <i>Fresh install should be used first, followed by an in-place upgrade or a live system, depending on your needs.</i>
-</p>
+| Applies to      | Fresh install       | In-place upgrade    | Live system         |
+|-----------------|---------------------|---------------------|---------------------|
+| Current user    | :white_check_mark:  | :x:                 | :white_check_mark:  |
+| New users       | :white_check_mark:  | :white_check_mark:  | :x:                 |
+| System-wide     | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |
+</div>
+<p align="center"><i>Fresh install should be used first, followed by an in-place upgrade or a live system, depending on your needs.</i></p>
 
 ## Changes made
 - Customized original Winhance power plan for both laptop and desktop (auto-detect)
@@ -190,61 +164,56 @@ This is a playbook based on <a href="https://winhance.net">Winhance</a> that pri
 - Librewolf or Helium is now set as default browser and pinned to the taskbar
 
 Most additional changes are not listed here but can be found in [Registry.ps1](https://github.com/KiyomizuSuzu/KiyomizuOS/blob/main/Executables/Registry.ps1).
-
 ## List of removed components
 ### Manual removal (non-standard):
 - Microsoft Edge and OneDrive
-
 ### Appx Packages:
-| Package Name | App Name |
-|--------------|----------|
-| Microsoft.BingSearch | Bing Search |
-| Microsoft.BingNews | Bing News |
-| Microsoft.BingWeather | Bing Weather |
-| Microsoft.WindowsCamera | Camera |
-| Clipchamp.Clipchamp | Clipchamp |
-| Microsoft.WindowsAlarms | Alarms & Clock |
-| Microsoft.GetHelp | Get Help |
-| Microsoft.WindowsCalculator | Calculator |
-| Microsoft.Windows.DevHome | Dev Home |
-| MSTeams | Microsoft Teams |
-| Microsoft.WindowsFeedbackHub | Feedback Hub |
-| Microsoft.WindowsTerminal | Windows Terminal |
-| Microsoft.MicrosoftOfficeHub | Microsoft Office Hub |
-| Microsoft.OutlookForWindows | Outlook for Windows |
-| Microsoft.PowerAutomateDesktop | Power Automate Desktop |
-| MicrosoftCorporationII.QuickAssist | Quick Assist |
-| Microsoft.MicrosoftSolitaireCollection | Microsoft Solitaire Collection |
-| Microsoft.GamingApp | Xbox App |
-| Microsoft.XboxIdentityProvider | Xbox Identity Provider |
-| Microsoft.Xbox.TCUI | Xbox TCUI |
-| Microsoft.XboxGamingOverlay | Xbox Game Bar Overlay |
-| Microsoft.XboxSpeechToTextOverlay | Xbox Speech-to-Text Overlay |
-| Microsoft.WindowsSoundRecorder | Sound Recorder |
-| Microsoft.MicrosoftStickyNotes | Sticky Notes |
-| Microsoft.Todos | Microsoft To Do |
-| Microsoft.YourPhone | Phone Link |
-| MicrosoftWindows.CrossDevice | Cross Device Experience |
-| MicrosoftWindows.Client.WebExperience | Windows Web Experience Pack |
-
+| Package Name                            | App Name                        |
+|-----------------------------------------|---------------------------------|
+| Microsoft.BingSearch                    | Bing Search                     |
+| Microsoft.BingNews                      | Bing News                       |
+| Microsoft.BingWeather                   | Bing Weather                    |
+| Microsoft.WindowsCamera                 | Camera                          |
+| Clipchamp.Clipchamp                     | Clipchamp                       |
+| Microsoft.WindowsAlarms                 | Alarms & Clock                  |
+| Microsoft.GetHelp                       | Get Help                        |
+| Microsoft.WindowsCalculator             | Calculator                      |
+| Microsoft.Windows.DevHome               | Dev Home                        |
+| MSTeams                                 | Microsoft Teams                 |
+| Microsoft.WindowsFeedbackHub            | Feedback Hub                    |
+| Microsoft.WindowsTerminal               | Windows Terminal                |
+| Microsoft.MicrosoftOfficeHub            | Microsoft Office Hub            |
+| Microsoft.OutlookForWindows             | Outlook for Windows             |
+| Microsoft.PowerAutomateDesktop          | Power Automate Desktop          |
+| MicrosoftCorporationII.QuickAssist      | Quick Assist                    |
+| Microsoft.MicrosoftSolitaireCollection  | Microsoft Solitaire Collection  |
+| Microsoft.GamingApp                     | Xbox App                        |
+| Microsoft.XboxIdentityProvider          | Xbox Identity Provider          |
+| Microsoft.Xbox.TCUI                     | Xbox TCUI                       |
+| Microsoft.XboxGamingOverlay             | Xbox Game Bar Overlay           |
+| Microsoft.XboxSpeechToTextOverlay       | Xbox Speech-to-Text Overlay     |
+| Microsoft.WindowsSoundRecorder          | Sound Recorder                  |
+| Microsoft.MicrosoftStickyNotes          | Sticky Notes                    |
+| Microsoft.Todos                         | Microsoft To Do                 |
+| Microsoft.YourPhone                     | Phone Link                      |
+| MicrosoftWindows.CrossDevice            | Cross Device Experience         |
+| MicrosoftWindows.Client.WebExperience   | Windows Web Experience Pack     |
 ### Capabilities:
-| Capability | Name | Status |
-|------------|------|--------|
-| Browser.InternetExplorer | Internet Explorer | <div align="center">Deprecated</div> |
-| Microsoft.Windows.PowerShell.ISE | PowerShell ISE | <div align="center">Deprecated</div> |
-| App.StepsRecorder | Steps Recorder | <div align="center">Deprecated</div> |
-| Media.WindowsMediaPlayer | Windows Media Player | <div align="center">Legacy</div> |
-| Microsoft.Windows.Notepad | Notepad | <div align="center">Legacy</div> |
-| OpenSSH.Client | OpenSSH Client | <div align="center">Active</div> |
-| MathRecognizer | Math Recognition | <div align="center">Deprecated</div> |
-
+| Capability                        | Name                  | Status                                |
+|-----------------------------------|-----------------------|---------------------------------------|
+| Browser.InternetExplorer          | Internet Explorer     | <div align="center">Deprecated</div>  |
+| Microsoft.Windows.PowerShell.ISE  | PowerShell ISE        | <div align="center">Deprecated</div>  |
+| App.StepsRecorder                 | Steps Recorder        | <div align="center">Deprecated</div>  |
+| Media.WindowsMediaPlayer          | Windows Media Player  | <div align="center">Legacy</div>      |
+| Microsoft.Windows.Notepad         | Notepad               | <div align="center">Legacy</div>      |
+| OpenSSH.Client                    | OpenSSH Client        | <div align="center">Active</div>      |
+| MathRecognizer                    | Math Recognition      | <div align="center">Deprecated</div>  |
 ### Optional Features:
-| Feature | Name | Status |
-|---------|------|--------|
-| Microsoft-RemoteDesktopConnection | Remote Desktop Connection | <div align="center">Active</div> |
+| Feature                           | Name                      | Status                            |
+|-----------------------------------|---------------------------|-----------------------------------|
+| Microsoft-RemoteDesktopConnection | Remote Desktop Connection | <div align="center">Active</div>  |
 ---
 ### Installation Guide
-
 1. Ensure you have [AME Beta](https://github.com/Ameliorated-LLC/trusted-uninstaller-cli/releases/latest) and a valid [Windows 11 ISO](https://massgrave.dev/windows_11_links).
 2. Open AME Beta and drag your `.iso` file into the application.
 3. Select the `KiyomizuOS.apbx` file.
@@ -253,12 +222,10 @@ Most additional changes are not listed here but can be found in [Registry.ps1](h
 6. Build the KiyomizuOS ISO.
 7. Mount the generated `.iso` file in File Explorer and run `setup.exe` from the root directory of the mounted ISO.
 8. Perform a clean installation during the setup process.
-
 > **NOTE** <br>
 > An in-place upgrade is supported but it will not modify your current user settings, this is done to preserve your existing user profile.
 > 
 > The live system primarily affects the currently signed-in user account, while making only secondary changes to the local machine.
-
 ### To Package the Playbook
 Ensure you have 7-Zip ZS installed from https://github.com/mcmilk/7-Zip-zstd
 
@@ -278,7 +245,6 @@ This playbook includes downloads from third-party projects.
 - [Sysinternals Handle](https://learn.microsoft.com/en-us/sysinternals/downloads/handle) — Sysinternals Software License Terms
 
 The original licenses and copyright notices for third-party software are included with their respective distributions.
-
 ## AGPL-3.0 License
 Source: https://www.gnu.org/licenses/agpl-3.0.en.html
 
