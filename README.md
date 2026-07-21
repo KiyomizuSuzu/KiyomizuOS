@@ -1,7 +1,5 @@
 <details><summary>日本語</summary>
-<p align="center">
-  <img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif" width="50%">
-</p>
+<p align="center"><img src="https://github.com/KiyomizuSuzu/KiyomizuSuzu.github.io/blob/main/KiyomizuOS.avif" width="50%"></p>
 <h1 align="center">KiyomizuOS</h1>
 <p align="center"><a href="https://winhance.net">Winhance</a>をベースにしたプレイブック。主にPowerShellスクリプト（できればPowerShell 7）を使い、<a href="https://amelabs.net">AME Wizard</a>経由でWindows 11のデブロートとカスタマイズを行う。</p>
 <h2 align="center">制限事項</h1>
