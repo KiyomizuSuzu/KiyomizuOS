@@ -15,30 +15,33 @@ function Invoke-Parallel {
     if (-not $Items -or $Items.Count -eq 0) {
         return
     }
-    Write-Log "Processing $($Items.Count) $Label in parallel (threads=$ThrottleLimit)..."
-    $ScriptText = $ScriptBlock.ToString()
-    $results = $Items | ForEach-Object -Parallel {
-        $data = [scriptblock]::Create($using:ScriptText)
-        try {
-            & $data $_
-        }
-        catch {
-            @{
-                Name    = $_
-                Success = $false
-                Error   = $_.Exception.Message
+    else {
+        Write-Log "Processing $($Items.Count) $Label in parallel (threads=$ThrottleLimit)..."
+        $ScriptText = $ScriptBlock.ToString()
+        $results = $Items | ForEach-Object -Parallel {
+            $item = $_
+            $data = [scriptblock]::Create($using:ScriptText)
+            try {
+                & $data $item
+            }
+            catch {
+                @{
+                    Name    = $item
+                    Success = $false
+                    Error   = $_.Exception.Message
+                }
+            }
+        } -ThrottleLimit $ThrottleLimit
+        foreach ($format in $results) {
+            if ($format.Success) {
+                Write-Log ($SuccessFormat -f $format.Name)
+            }
+            else {
+                Write-Log ($FailFormat -f $format.Name, $format.Error)
             }
         }
-    } -ThrottleLimit $ThrottleLimit
-    foreach ($format in $results) {
-        if ($format.Success) {
-            Write-Log ($SuccessFormat -f $format.Name)
-        }
-        else {
-            Write-Log ($FailFormat -f $format.Name, $format.Error)
-        }
+        Write-Log "Completed processing for $Label"
     }
-    Write-Log "Completed processing for $Label"
 }
 # ============================================================================
 # DATA

@@ -57,7 +57,7 @@ switch ($Mode) {
                     -Argument '--headless "C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\ProgramData\AME\ActiveSetup\InplaceUpgrade.ps1" -Mode Startup') `
                     -Trigger (New-ScheduledTaskTrigger -AtLogOn) `
                     -Principal (New-ScheduledTaskPrincipal -GroupId "S-1-5-4" -RunLevel Highest) `
-                    -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries)
+                    -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries) | Out-Null
         }
         else {
             Write-Log "Found $($LocalAccounts.Name -join ', ')" 'WARN'
