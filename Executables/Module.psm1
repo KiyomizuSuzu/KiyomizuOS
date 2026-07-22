@@ -3,7 +3,7 @@
 # ============================================================================
 function Initialize-RuntimeDefaults {
     if ($PSVersionTable.PSEdition -ne "Core") {
-        throw "Windows Powershell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest"
+        throw "Windows PowerShell is not supported, please use https://github.com/PowerShell/PowerShell/releases/latest"
     }
     $global:ErrorActionPreference = 'SilentlyContinue'
 }

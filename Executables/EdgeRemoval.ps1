@@ -6,28 +6,23 @@ Initialize-RuntimeDefaults
 function Test-LegacyEdgeInstalled {
     $mainPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages'
     $allPackages = Get-ChildItem -Path $mainPath -Name
-    try {
-        $matchingPackages = @()
-        foreach ($package in $allPackages) {
-            $isBrowserPackage = $package -match 'Microsoft-Windows-Internet-Browser-Package'
-            $hasTildeMarker = $package -match '~~'
-            if ($isBrowserPackage -and $hasTildeMarker) {
-                $matchingPackages += $package
-            }
+    $matchingPackages = @()
+    foreach ($package in $allPackages) {
+        $isBrowserPackage = $package -match 'Microsoft-Windows-Internet-Browser-Package'
+        $hasTildeMarker = $package -match '~~'
+        if ($isBrowserPackage -and $hasTildeMarker) {
+            $matchingPackages += $package
         }
-        foreach ($legacyEdge in $matchingPackages) {
-            $packageInfo = dism.exe /online /Get-PackageInfo /PackageName:$legacyEdge
-            if ($packageInfo -match 'State\s*:\s*Installed') {
-                Write-Log "Found $legacyEdge installed."
-                return $legacyEdge
-            }
+    }
+    foreach ($legacyEdge in $matchingPackages) {
+        $packageInfo = dism.exe /online /Get-PackageInfo /PackageName:$legacyEdge
+        if ($packageInfo -match 'State\s*:\s*Installed') {
+            Write-Log "Found $legacyEdge installed."
+            return $legacyEdge
         }
-        throw #trigger catch
     }
-    catch {
-        Write-Log "Found no Legacy Edge installed." 'WARN'
-        return $false
-    }
+    Write-Log "Found no Legacy Edge installed." 'WARN'
+    return $false
 }
 function Test-ChromiumEdgeInstalled {
     $edgeFolders = @(
@@ -39,27 +34,24 @@ function Test-ChromiumEdgeInstalled {
         'C:\Program Files',
         'C:\Program Files (x86)'
     )
-    try{
-        foreach ($program in $programFiles) {
-            foreach ($folder in $edgeFolders) {
-                $directory = Join-Path $program "Microsoft\$folder"
-                $dirExists = Test-Path -Path $directory
-                if ($dirExists) {
-                    Write-Log "Found $directory installed."
-                    return $true
-                }
+    foreach ($program in $programFiles) {
+        foreach ($folder in $edgeFolders) {
+            $directory = Join-Path $program "Microsoft\$folder"
+            $dirExists = Test-Path -Path $directory
+            if ($dirExists) {
+                Write-Log "Found $directory installed."
+                return $true
             }
         }
-        $appExists = Get-CimInstance -Namespace root\cimv2 `
-                        -ClassName Win32_InstalledStoreProgram `
-                        -Filter "Name like '%Microsoft.MicrosoftEdge.Stable%'"
-        if ($appExists) {
-            Write-Log "Found Microsoft.MicrosoftEdge.Stable installed."
-            return $true
-        }
-        throw #trigger catch
     }
-    catch {
+    $appExists = Get-CimInstance -Namespace root\cimv2 `
+                    -ClassName Win32_InstalledStoreProgram `
+                    -Filter "Name like '%Microsoft.MicrosoftEdge.Stable%'"
+    if ($appExists) {
+        Write-Log "Found Microsoft.MicrosoftEdge.Stable installed."
+        return $true
+    }
+    else {
         Write-Log "Found no Chromium Edge installed." 'WARN'
         return $false
     }
@@ -108,28 +100,23 @@ function Remove-LegacyEdge {
         Remove-Item -Path $ownersPath `
             -Recurse | Out-Null
     }
-    try{
-        Write-Log 'Removing Legacy Edge package via DISM'
-        $dismProcess = Start-Process -FilePath 'dism.exe' `
-                            -ArgumentList @(
-                                '/online',
-                                '/Remove-Package',
-                                "/PackageName:$package",
-                                '/NoRestart'
-                            ) `
-                            -NoNewWindow `
-                            -Wait
-        $dismProcess.Dispose()
-        throw #trigger catch
+    Write-Log 'Removing Legacy Edge package via DISM'
+    $dismProcess = Start-Process -FilePath 'dism.exe' `
+                        -ArgumentList @(
+                            '/online',
+                            '/Remove-Package',
+                            "/PackageName:$package",
+                            '/NoRestart'
+                        ) `
+                        -NoNewWindow `
+                        -Wait
+    $dismProcess.Dispose()
+    Write-Log 'Removing Legacy UWP Edge package'
+    $legacyPackages = Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftEdge"
+    foreach ($UWP in $legacyPackages) {
+        Remove-AppxPackage -Package $UWP.PackageFullName -AllUsers
     }
-    catch {
-        Write-Log 'Removing Legacy UWP Edge package'
-        $legacyPackages = Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftEdge"
-        foreach ($UWP in $legacyPackages) {
-            Remove-AppxPackage -Package $UWP.PackageFullName -AllUsers
-        }
-        Write-Log 'Successfully removed Legacy Edge.'
-    }
+    Write-Log 'Successfully removed Legacy Edge.'
 }
 function Remove-ChromiumEdge {
     $edgePath = 'C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe'

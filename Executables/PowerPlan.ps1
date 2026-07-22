@@ -74,27 +74,22 @@ function Set-Powersettings {
         [string[]]$QueryOutput,
         [string]$Desc #not required
     )
-    try {
-        if ($QueryOutput -match "The power scheme, subgroup or setting specified does not exist.") {
-            Write-Log "$ID doesn't exist." 'ERROR'
-            return
-        }
-        throw #trigger catch
+    if ($QueryOutput -match "The power scheme, subgroup or setting specified does not exist.") {
+        Write-Log "$ID doesn't exist." 'ERROR'
+        return
     }
-    catch {
-        if (-not ($QueryOutput -match "$Set")) {
-            Write-Log "$Set doesn't exist." 'ERROR'
-            return
-        }
-        elseif (-not ($QueryOutput -match "$Group")) {
-            Write-Log "$Group doesn't exist." 'ERROR'
-            return
-        }
-        else {
-            powercfg /setacvalueindex $ID $Group $Set $Plugged
-            powercfg /setdcvalueindex $ID $Group $Set $Battery
-            Write-Log "Successfully set $Set"
-        }
+    elseif (-not ($QueryOutput -match "$Set")) {
+        Write-Log "$Set doesn't exist." 'ERROR'
+        return
+    }
+    elseif (-not ($QueryOutput -match "$Group")) {
+        Write-Log "$Group doesn't exist." 'ERROR'
+        return
+    }
+    else {
+        powercfg /setacvalueindex $ID $Group $Set $Plugged
+        powercfg /setdcvalueindex $ID $Group $Set $Battery
+        Write-Log "Successfully set $Set"
     }
 }
 function Set-ActivePowerplan {
