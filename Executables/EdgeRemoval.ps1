@@ -208,20 +208,20 @@ function Remove-AdditionalEdgeFolders {
             $profiles += $userProfile
         }
     }
-    try{
-        foreach ($userProfile in $profiles) {
-            $edgeLocal = Join-Path $userProfile.FullName 'AppData\Local\Microsoft\Edge'
-            $edgeLocalExists = Test-Path -Path $edgeLocal
+    foreach ($userProfile in $profiles) {
+        $edgeLocal = Join-Path $userProfile.FullName 'AppData\Local\Microsoft\Edge'
+        $edgeLocalExists = Test-Path -Path $edgeLocal
+        try {
             if ($edgeLocalExists) {
                 #remove any files if needed
                 Remove-Item -Path $edgeLocal `
                     -Recurse `
-                    -ErrorAction Stop| Out-Null
+                    -ErrorAction Stop | Out-Null
             }
         }
-    }
-    catch {
-        Write-Log "Failed to remove $edgeLocal" 'ERROR'
+        catch {
+            Write-Log "Failed to remove ${edgeLocal}: $($_.Exception.Message)" 'ERROR'
+        }
     }
 }
 function Install-EdgeProtocolRedirect {
@@ -278,7 +278,8 @@ else {
                         -Recurse 
         if ($stubFiles.Count -gt 0) {
             $stubSearch = $stubFiles[0]
-        } else {
+        } 
+        else {
             $stubSearch = $null
         }
         if ($stubSearch) {
