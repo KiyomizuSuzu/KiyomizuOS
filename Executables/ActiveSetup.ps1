@@ -47,7 +47,7 @@ if (-not $FolderExists) {
 $LogFileExists = Test-Path -Path $LogFile
 if (-not $Phase2 -and $LogFileExists) {
     Clear-Content $LogFile -Force
-}
+}d
 # ============================================================================
 # EXECUTION
 # ============================================================================
