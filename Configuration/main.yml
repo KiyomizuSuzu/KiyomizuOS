@@ -5,12 +5,12 @@ actions:
   # ==============================================================================
   - !status: {status: "Installing Powershell 7 (Required)"}
   - !download: 
-    destination: Microsoft.PowerShell-7.7.0.1-win-x64.msi
-    url: https://github.com/Devolutions/pwsh-distro/releases/download/v7.7.0.1/Microsoft.PowerShell-7.7.0.1-win-x64.msi
+    destination: Microsoft.PowerShell-7.7.0.2-win-x64.msi
+    url: https://github.com/Devolutions/pwsh-distro/releases/download/v7.7.0.2/Microsoft.PowerShell-7.7.0.2-win-x64.msi
   - !run:
     exeDir: true
     exe: C:\Windows\System32\msiexec.exe
-    args: /package Microsoft.PowerShell-7.7.0.1-win-x64.msi /quiet DISABLE_TELEMETRY=1
+    args: /package Microsoft.PowerShell-7.7.0.2-win-x64.msi /quiet DISABLE_TELEMETRY=1
 
   - !status: {status: "Installing 7-Zip ZS (Required)"}
   - !download:
