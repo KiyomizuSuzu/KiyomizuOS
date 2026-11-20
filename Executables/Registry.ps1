@@ -1199,16 +1199,6 @@ Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Exp
     -Type 'DWord' `
     -Value 0 `
     -Desc 'Show or hide Recall pin on the taskbar'
-Set-RegistryValue -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Dsh' `
-    -Name 'AllowNewsAndInterests' `
-    -Type 'DWord' `
-    -Value 0 `
-    -Desc 'Show the Widgets button that displays personalized news, weather, calendar, and other information'
-Set-RegistryValue -Path "$userHive\Software\Policies\Microsoft\Dsh" `
-    -Name 'AllowNewsAndInterests' `
-    -Type 'DWord' `
-    -Value 0 `
-    -Desc 'Show Widgets button with personalized news, weather, calendar, and other content'
 
 
 Set-RegistryValue -Path "$userHive\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
