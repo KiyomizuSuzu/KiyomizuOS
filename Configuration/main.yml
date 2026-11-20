@@ -5,20 +5,20 @@ actions:
   # ==============================================================================
   - !status: {status: "Installing Powershell 7 (Required)"}
   - !download: 
-    destination: PowerShell-7.6.6-win-x64.msi
-    url: https://github.com/PowerShell/PowerShell/releases/download/v7.6.6/PowerShell-7.6.6-win-x64.msi
+    destination: Microsoft.PowerShell-7.7.0.1-win-x64.msi
+    url: https://github.com/Devolutions/pwsh-distro/releases/download/v7.7.0.1/Microsoft.PowerShell-7.7.0.1-win-x64.msi
   - !run:
     exeDir: true
     exe: C:\Windows\System32\msiexec.exe
-    args: /package PowerShell-7.6.6-win-x64.msi /quiet DISABLE_TELEMETRY=1
+    args: /package Microsoft.PowerShell-7.7.0.1-win-x64.msi /quiet DISABLE_TELEMETRY=1
 
   - !status: {status: "Installing 7-Zip ZS (Required)"}
   - !download:
-    destination: 7z26.01-zstd-x64.exe
-    url: https://github.com/mcmilk/7-Zip-zstd/releases/download/v26.01-v1.5.7-R1/7z26.01-zstd-x64.exe
+    destination: 7z26.05-zstd-x64.exe
+    url: https://github.com/mcmilk/7-Zip-zstd/releases/download/v26.05-v1.5.7-R1/7z26.05-zstd-x64.exe
   - !run:
     exeDir: true
-    exe: 7z26.01-zstd-x64.exe
+    exe: 7z26.05-zstd-x64.exe
     args: /S
 
   - !status: {status: "Installing Microsoft Visual C++ Redistributable"}
@@ -39,29 +39,29 @@ actions:
 
   - !status: {status: "Installing Librewolf", option: librewolf}
   - !download:
-    destination: librewolf-157.0.1-1-windows-x86_64-setup.exe
-    url: https://dl.librewolf.net/librewolf/157.0.1-1/librewolf-157.0.1-1-windows-x86_64-setup.exe
+    destination: librewolf-160.0-1-windows-x86_64-setup.exe
+    url: https://dl.librewolf.net/librewolf/160.0-1/librewolf-160.0-1-windows-x86_64-setup.exe
     option: librewolf
   - !run:
     exeDir: true
-    exe: librewolf-157.0.1-1-windows-x86_64-setup.exe
+    exe: librewolf-160.0-1-windows-x86_64-setup.exe
     args: /S
     option: librewolf
-  
+
   - !status: {status: "Installing Helium", option: helium}
   - !download:
-    destination: helium_0.19.2.1_x64-installer.exe
-    url: https://github.com/imputnet/helium-windows/releases/download/0.19.2.1/helium_0.19.2.1_x64-installer.exe
+    destination: helium_0.21.3.1_x64-installer.exe
+    url: https://github.com/imputnet/helium-windows/releases/download/0.21.3.1/helium_0.21.3.1_x64-installer.exe
     option: helium
   - !run:
     exeDir: true
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
-    args: x helium_0.19.2.1_x64-installer.exe -o"helium_0.19.2.1_x64-installer" -aoa
+    args: x helium_0.21.3.1_x64-installer.exe -o"helium_0.21.3.1_x64-installer" -aoa
     option: helium
   - !run:
     exeDir: true
     exe: C:\Program Files\PowerShell\7\pwsh.exe
-    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Start-Process '.\helium_0.19.2.1_x64-installer\$TEMP\helium_install\setup.exe' -ArgumentList '--install-archive=.\helium_0.19.2.1_x64-installer\$TEMP\helium_install\helium.7z --silent --install --system-level --do-not-launch-chrome' -Wait" 2>$null
+    args: -NoProfile -ExecutionPolicy Bypass -NonInteractive -Command "Start-Process '.\helium_0.21.3.1_x64-installer\$TEMP\helium_install\setup.exe' -ArgumentList '--install-archive=.\helium_0.21.3.1_x64-installer\$TEMP\helium_install\helium.7z --silent --install --system-level --do-not-launch-chrome' -Wait" 2>$null
     option: helium
 
   # ==============================================================================
@@ -130,7 +130,7 @@ actions:
   - !status: {status: "Turning off bluetooth by default"}
   - !download:
     destination: Bluetooth.exe
-    url: https://github.com/KiyomizuSuzu/Bluetooth/releases/download/1.0.0/Bluetooth.exe
+    url: https://github.com/KiyomizuSuzu/Bluetooth/releases/download/1.0.1/Bluetooth.exe
   - !run:
     exeDir: true
     exe: Bluetooth.exe
@@ -142,7 +142,7 @@ actions:
     url: https://download.sysinternals.com/files/Handle.zip
   - !download:
     destination: FileOrFolderInUse.exe
-    url: https://github.com/KiyomizuSuzu/FileOrFolderInUse/releases/download/1.0.0/FileOrFolderInUse.exe
+    url: https://github.com/KiyomizuSuzu/FileOrFolderInUse/releases/download/1.0.1/FileOrFolderInUse.exe
   - !run:
     exeDir: true
     exe: C:\Program Files\7-Zip-Zstandard\7z.exe
